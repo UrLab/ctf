@@ -15,3 +15,8 @@ class Challenge(models.Model):
 class Hint(models.Model):
     text = models.TextField()
     challenge = models.ForeignKey('Challenge')
+
+class Resolution(models.Model):
+    challenge = models.ForeignKey('Challenge')
+    team = models.ForeignKey('users.Team')
+    time = models.DateTimeField(auto_now=True)
