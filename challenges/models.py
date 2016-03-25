@@ -10,6 +10,7 @@ class Challenge(models.Model):
     attachment = models.FileField(upload_to="attachments/", blank=True, null=True)
     category = models.ForeignKey('Category')
     points = models.PositiveSmallIntegerField()
+    flag = models.CharField(max_length=255)
 
 class Hint(models.Model):
     text = models.TextField()
