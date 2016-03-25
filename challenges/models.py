@@ -9,7 +9,7 @@ class Challenge(models.Model):
     decription = models.TextField()
     attachment = models.FileField(upload_to="attachments/", blank=True, null=True)
     category = models.ForeignKey('Category')
-    points = models.IntegerField(min_value=0, max_value=65535)
+    points = models.PositiveIntegerField()
 
 class Hint(models.Model):
     text = models.TextField()
