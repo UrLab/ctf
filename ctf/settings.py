@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'users',
     'bootstrap3',
     'markdown_deux',
+    'debug_toolbar',
 ]
 
 AUTH_USER_MODEL = "users.User"
