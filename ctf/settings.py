@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'challenges',
     'users',
     'bootstrap3',
+    'markdown_deux',
 ]
 
 AUTH_USER_MODEL = "users.User"

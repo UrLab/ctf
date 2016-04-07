@@ -9,7 +9,7 @@ class Category(models.Model):
 
 class Challenge(models.Model):
     title = models.CharField(max_length=1000)
-    decription = models.TextField()
+    description = models.TextField()
     attachment = models.FileField(upload_to="attachments/", blank=True, null=True)
     category = models.ForeignKey('Category')
     points = models.PositiveSmallIntegerField()

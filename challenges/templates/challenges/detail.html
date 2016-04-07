@@ -1,1 +1,68 @@
-Detail View
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load markdown_deux_tags %}
+
+{% block content %}
+<div class="page-header">
+    <h1>{{challenge.title}} <small>({{challenge.points}} points)</small></h1>
+</div>
+
+<div class="row">
+    {{challenge.description|markdown}}
+</div>
+<br/>
+
+
+{% if challenge.attachment %}
+<div class="row">
+    Fichier: <a href={{challenge.attachment.url}}>{{challenge.attachment.name}}</a>
+</div>
+<br/>
+{% endif %}
+
+<div class="row">
+    <form action="{% url 'flag' challenge.id %}" method="POST" class="form-horizontal">
+        {% csrf_token %}
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1"><i class="fa fa-flag"></i></span>
+            <label for="flag" class="sr-only"></label>
+            <input type="text" id="flag" name="flag" autocomplete="off" class="form-control" placeholder="Flag"/>
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit">Go!</button>
+            </span>
+        </div>
+    </form>
+</div>
+<br/>
+<br/>
+<br/>
+
+<div class="raw">
+    {% if challenge.hint_set.all %}
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Indices</div>
+            <ul class="list-group">
+                {% for hint in challenge.hint_set.all %}
+                <li class="list-group-item">{{hint.text}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if challenge.resolution_set.all %}
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Teams ayant résolu ce challenge</div>
+            <ul class="list-group">
+                {% for resolution in challenge.resolution_set.all %}
+                <li class="list-group-item">{{resolution.team.name}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -8,16 +8,26 @@
 <div class="panel panel-default">
     <div class="panel-heading">{{category.name}}</div>
 
-    <table class="table">
-        {% for challenge in category.challenge_set.all %}
+    <table class="table" align="center">
+        <thead>
         <tr>
-            {% teams challenge.resolution_set.all as ts%}
+            <th class="col-xs-1">Validé</th>
+            <th class="col-xs-1">Points</th>
+            <th>Titre</th>
+            <th class="col-xs-1">Résolutions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for challenge in category.challenge_set.all %}
+        {% teams challenge.resolution_set.all as ts%}
+        <tr class={%if user.team in ts %}"success"{% else %}"danger"{% endif %}>
             <td>{% if user.team in ts %} V {% else %} X {% endif %}</td>
             <td>{{challenge.points}}</td>
             <td>{{challenge.title}}</td>
             <td>{{challenge.resolution_set.count}}</td>
         </tr>
         {% endfor %}
+        </tbody>
     </table>
 </div>
 {% endfor %}
