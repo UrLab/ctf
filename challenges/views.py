@@ -5,13 +5,19 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponseBadRequest
 
-from .models import Challenge
+from .models import Challenge, Category
 
 # Create your views here.
 class ListView(generic.ListView):
     template_name = 'challenges/list.html'
     model = Challenge
     context_object_name = 'challenges_list'
+
+    def get_context_data(self, **kwargs):
+        context = super(ListView, self).get_context_data(**kwargs)
+        context["categories"] = Category.objects.all()
+        return context
+
 
 class DetailView(generic.DetailView):
     model = Challenge

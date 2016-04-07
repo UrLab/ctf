@@ -4,6 +4,9 @@ from django.db import models
 class Category(models.Model):
     name = models.CharField(max_length=1000)
 
+    def __str__(self):
+        return self.name
+
 class Challenge(models.Model):
     title = models.CharField(max_length=1000)
     decription = models.TextField()
@@ -11,6 +14,9 @@ class Challenge(models.Model):
     category = models.ForeignKey('Category')
     points = models.PositiveSmallIntegerField()
     flag = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title
 
 class Hint(models.Model):
     text = models.TextField()
