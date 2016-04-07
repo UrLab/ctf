@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponseBadRequest
 
-from .models import Challenge, Category
+from .models import Challenge, Category, Resolution
 
 # Create your views here.
 class ListView(generic.ListView):
@@ -31,9 +31,11 @@ def flag(request, pk):
     if attempt != challenge.flag:
         messages.add_message(request, messages.ERROR, "Ce n'est pas le bon flag.")
     else:
-        if request.user not in challenge.resolved_by.all():
+        team = request.user.team
+        teams = map(lambda x:x.team, challenge.resolution_set.all())
+        if team not in teams:
             messages.add_message(request, messages.SUCCESS, "Félicitation, vous avez réussi ce challenge.")
-            challenge.resolved_by.add(request.user)
+            Resolution.objects.create(challenge=challenge, team=team)
         else:
             messages.add_message(request, messages.INFO, "Vous aviez déjà résolu ce challenge.")
     return HttpResponseRedirect(reverse('detail', args=[challenge.id]))
