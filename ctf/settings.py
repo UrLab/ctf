@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'notices',
     'challenges',
     'users',
+    'bootstrap3',
 ]
 
 AUTH_USER_MODEL = "users.User"
