@@ -5,6 +5,7 @@
 {% block content %}
 
 {% for category in categories %}
+<div class="col-lg-6">
 <div class="panel panel-default">
     <div class="panel-heading">{{category.name}}</div>
 
@@ -23,12 +24,13 @@
         <tr class={%if user.team in ts %}"success"{% else %}"danger"{% endif %}>
             <td>{% if user.team in ts %} V {% else %} X {% endif %}</td>
             <td>{{challenge.points}}</td>
-            <td>{{challenge.title}}</td>
+            <td><a href={% url 'detail' challenge.id %}>{{challenge.title}}</a></td>
             <td>{{challenge.resolution_set.count}}</td>
         </tr>
         {% endfor %}
         </tbody>
     </table>
+</div>
 </div>
 {% endfor %}
 
