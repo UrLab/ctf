@@ -60,3 +60,12 @@ class Team(models.Model):
     name = models.CharField(max_length=255)
     def __str__(self):
         return self.name
+
+    @property
+    def score(self):
+        resolutions = self.resolution_set.order_by('-time')
+        last_time = resolutions[0].time
+        score = 0
+        for resolution in resolutions:
+            score += resolution.challenge.points
+        return (score, last_time)
