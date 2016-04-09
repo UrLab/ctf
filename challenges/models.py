@@ -26,3 +26,5 @@ class Resolution(models.Model):
     challenge = models.ForeignKey('Challenge')
     team = models.ForeignKey('users.Team')
     time = models.DateTimeField(auto_now=True)
+    class Meta:
+        unique_together = (("challenge", "team"))
