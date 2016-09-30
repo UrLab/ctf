@@ -44,7 +44,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=127, blank=True)
     last_name = models.CharField(max_length=127, blank=True)
 
-    team = models.ForeignKey('users.Team', related_name='members')
+    team = models.ForeignKey('users.Team', related_name='members', blank=True, null=True)
 
     def get_short_name(self):
         return self.username
