@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load humanize %}
+
+{% block content %}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Team</th>
+            <th>Score</th>
+            <th>Last validation</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for team in teams %}
+        <tr>
+            <td>{{team.name}}</td>
+            <td>{{team.score}}</td>
+            {% if team.last_validation %}
+            <td>{{team.last_validation|naturaltime}}</td>
+            {% else %}
+            <td>Never</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
