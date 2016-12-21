@@ -1,8 +1,17 @@
 {% extends "base.html" %}
 {% load bootstrap3 %}
 
+{% block out_of_container %}
+<div class="full">
+    <h1>
+        <img src="/static/ulb.jpg" id="ulb-logo" alt="ULB">Capture The Flag 2017</h1>
+</div>
+
+{% endblock %}
+
 {% block content %}
 <p>
+<h1>Inscriptions</h1>
 Bienvenue, voici un super ctf organisé par urlab. si vous voulez vous inscrire, il suffit de suivre ce <a href="#">lien</a>
 </p>
 {% endblock %}

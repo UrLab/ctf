@@ -6,48 +6,62 @@
     <head>
         <title>{% block title %}Urlab ctf{% endblock %}</title>
         {% bootstrap_css %}
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <style type="text/css">
+            body {
+                                font-family: 'Roboto', sans-serif;
+            }
+            .navbar-brand img {
+                height: 1em;
+                display: inline-block;
+                margin-right: .5em;
+            }
+            .navbar {
+                margin-bottom: 0;
+                border: 0;
+                box-shadow: none;
+            }
+
+            .full {
+                background: linear-gradient(
+                  rgba(0, 0, 0, 0.7),
+                  rgba(0, 0, 0, 0.7)
+                ), url('/static/bombe.jpg') no-repeat center center;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                background-size: cover;
+                -o-background-size: cover;
+                height: 100vh;
+                min-height: 20em;
+                width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+                color: black;
+            }
+
+            #ulb-logo {
+                height: 2.5em;
+                margin-right: .5em;
+            }
+
+            .full h1 {
+                font-weight: bold;
+                font-size: 4.5em;
+                color: white;
+            }
+        </style>
     </head>
 
     <body>
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="{% url 'index' %}">CTF</a>
-                </div>
-                <div class="collapse navbar-collapse" id="navigation">
-                    <ul class="nav navbar-nav">
-                        <li><a href="#">Scoreboard</a></li>
-                    </ul>
-
-                    <ul class="nav navbar-nav navbar-right">
-                        {% if user.is_authenticated %}
-                        <li><a href="#">Team info</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.username}}<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">About</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Logout</a></li>
-                            </ul>
-                        </li>
-                        {% else %}
-                        <li><a href="#">Login</a></li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        {% include "navbar.html" %}
 
         <div class="col-md-12">
         {% bootstrap_messages %}
         </div>
+        {% block out_of_container %}
+        {% endblock %}
         <div class="container">
             <div class="row">
                 {% block content %}

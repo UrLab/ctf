@@ -19,6 +19,6 @@ from . import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', include('challenges.urls')),
-    url(r'home', views.home, name="home"),
+    url(r'^challenges/', include('challenges.urls')),
+    url(r'^$', views.home, name="home"),
 ]
