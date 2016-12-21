@@ -1,0 +1,47 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.navbar-brand img {
+    height: 1em;
+    display: inline-block;
+    margin-right: .5em;
+}
+.navbar {
+    margin-bottom: 0;
+    border: 0;
+    box-shadow: none;
+}
+
+.full {
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.7),
+        rgba(0, 0, 0, 0.7)
+    ), url('/static/bombe.jpg') no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    height: 100vh;
+    min-height: 20em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
+#ulb-logo {
+    height: 2.5em;
+    margin-right: .5em;
+}
+
+.full h1 {
+    font-weight: bold;
+    font-size: 4.5em;
+    color: white;
+}
+
+#b-messages {
+    min-height: 0;
+}

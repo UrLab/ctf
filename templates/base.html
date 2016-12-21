@@ -4,60 +4,17 @@
 
 <html>
     <head>
-        <title>{% block title %}Urlab ctf{% endblock %}</title>
+        <title>{% block title %}ULB Capture the Flag{% endblock %}</title>
         {% bootstrap_css %}
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-        <style type="text/css">
-            body {
-                                font-family: 'Roboto', sans-serif;
-            }
-            .navbar-brand img {
-                height: 1em;
-                display: inline-block;
-                margin-right: .5em;
-            }
-            .navbar {
-                margin-bottom: 0;
-                border: 0;
-                box-shadow: none;
-            }
-
-            .full {
-                background: linear-gradient(
-                  rgba(0, 0, 0, 0.7),
-                  rgba(0, 0, 0, 0.7)
-                ), url('/static/bombe.jpg') no-repeat center center;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                background-size: cover;
-                -o-background-size: cover;
-                height: 100vh;
-                min-height: 20em;
-                width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-                color: black;
-            }
-
-            #ulb-logo {
-                height: 2.5em;
-                margin-right: .5em;
-            }
-
-            .full h1 {
-                font-weight: bold;
-                font-size: 4.5em;
-                color: white;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="/static/style.css">
     </head>
 
     <body>
         {% include "navbar.html" %}
 
-        <div class="col-md-12">
+        <div class="col-md-12" id="b-messages">
         {% bootstrap_messages %}
         </div>
         {% block out_of_container %}
@@ -70,5 +27,6 @@
         </div>
 
         {% bootstrap_javascript jquery=1 %}
+        <script type="text/javascript" src="/static/dynamic-loader-bower.js"></script>
     </body>
 </html>
