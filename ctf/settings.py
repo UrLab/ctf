@@ -133,3 +133,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+LOGIN_REDIRECT_URL = ''
+
+
+try:
+    from .local_settings import * # NOQA
+except ImportError:
+    print("Warning : no local settings detected.")

@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^challenges/', include('challenges.urls')),
     url(r'^$', views.home, name="home"),
+    url('^', include('django.contrib.auth.urls')),
 ]
