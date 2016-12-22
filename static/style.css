@@ -98,6 +98,7 @@ body {
     /*font-weight: bold;*/
     font-size: 3em;
     color: white;
+    margin-bottom: 0.6em;
 }
 
 #b-messages {
