@@ -8,20 +8,23 @@
 </div>
 
 <div class="row">
-    {{challenge.description|markdown}}
+    <div class="col-md-12">
+        {{challenge.description|markdown}}
+    </div>
 </div>
 <br/>
 
 
 {% if challenge.attachment %}
 <div class="row">
-    Fichier: <a href={{challenge.attachment.url}}>{{challenge.attachment.name}}</a>
+    <div class="col-md-12">
+        File: <a href={{challenge.attachment.url}}>{{challenge.attachment.name}}</a>
+    </div>
 </div>
-<br/>
 {% endif %}
 
 <div class="row">
-    <form action="{% url 'flag' challenge.id %}" method="POST" class="form-horizontal">
+    <form action="{% url 'flag' challenge.id %}" method="POST" class="form-horizontal col-md-12">
         {% csrf_token %}
         <div class="input-group">
             <span class="input-group-addon" id="basic-addon1"><i class="fa fa-flag"></i></span>
@@ -54,7 +57,7 @@
     {% if challenge.resolution_set.all %}
     <div class="col-md-6">
         <div class="panel panel-default">
-            <div class="panel-heading">Teams ayant résolu ce challenge</div>
+            <div class="panel-heading">Teams that flagged this challenge</div>
             <ul class="list-group">
                 {% for resolution in challenge.resolution_set.all %}
                 <li class="list-group-item">{{resolution.team.name}}</li>

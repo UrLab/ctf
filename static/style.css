@@ -124,3 +124,7 @@ body {
 #b-messages {
     min-height: 0;
 }
+
+#b-messages > div {
+    margin-top: 2em;
+}
