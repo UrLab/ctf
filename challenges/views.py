@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponseBadRequest
 
+from ratelimit.decorators import ratelimit
+
 from .models import Challenge, Category, Resolution
 
 
@@ -24,6 +26,12 @@ class DetailView(generic.DetailView):
     template_name = 'challenges/detail.html'
 
 
+def team_key(group, request):
+    return str(request.user.team.id)
+
+
+# Ratelimlit at 1 request every 2 second per team
+@ratelimit(key=team_key, rate='1/20s')
 @login_required
 def flag(request, pk):
     if 'flag' not in request.POST:
