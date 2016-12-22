@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponseBadRequest
+from django.shortcuts import render
 
 from ratelimit.decorators import ratelimit
 
@@ -31,9 +32,12 @@ def team_key(group, request):
 
 
 # Ratelimlit at 1 request every 2 second per team
-@ratelimit(key=team_key, rate='1/20s')
+@ratelimit(key=team_key, rate='1/5s')
 @login_required
 def flag(request, pk):
+    was_limited = getattr(request, 'limited', False)
+    if was_limited:
+        return render(request, "challenges/rate_limited.html", status=429)
     if 'flag' not in request.POST:
         return HttpResponseBadRequest("Missing parameter flag.")
     challenge = get_object_or_404(Challenge, pk=pk)
