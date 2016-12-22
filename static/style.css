@@ -2,6 +2,10 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.main {
+    margin-top: 30px;
+}
+
 .navbar-brand img {
     height: 1em;
     display: inline-block;

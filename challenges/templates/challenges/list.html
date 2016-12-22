@@ -4,6 +4,7 @@
 
 {% block content %}
 
+<h1>Challenges</h1>
 {% for category in categories %}
 <div class="col-lg-6">
 <div class="panel panel-default">
@@ -12,26 +13,39 @@
     <table class="table" align="center">
         <thead>
         <tr>
-            <th class="col-xs-1">Validé</th>
+            <th class="col-xs-1"></th>
             <th class="col-xs-1">Points</th>
-            <th>Titre</th>
-            <th class="col-xs-1">Résolutions</th>
+            <th>Name</th>
+            <th class="col-xs-1">Flagged</th>
         </tr>
         </thead>
         <tbody>
         {% for challenge in category.challenge_set.all %}
-        {% teams challenge.resolution_set.all as ts%}
-        <tr class={%if user.team in ts %}"success"{% else %}"danger"{% endif %}>
-            <td>{% if user.team in ts %} V {% else %} X {% endif %}</td>
-            <td>{{challenge.points}}</td>
-            <td><a href={% url 'detail' challenge.id %}>{{challenge.title}}</a></td>
-            <td>{{challenge.resolution_set.count}}</td>
-        </tr>
+            {% teams challenge.resolution_set.all as ts%}
+            <tr class={%if user.team in ts %}"success"{% else %}""{% endif %}>
+                <td>
+                    {% if user.team in ts %}
+                        <input type="checkbox" disabled checked>
+                    {% else %}
+                        <input type="checkbox" disabled>
+                    {% endif %}
+                </td>
+                <td>{{challenge.points}}</td>
+                <td><a href={% url 'detail' challenge.id %}>{{challenge.title}}</a></td>
+                <td>{{challenge.resolution_set.count}}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td></td>
+                <td colspan="4">No challenges are available in this category</td>
+            </tr>
         {% endfor %}
         </tbody>
     </table>
 </div>
 </div>
+{% empty %}
+    <div class="alert alert-warning" role="alert">No challenges are available right now...</div>
 {% endfor %}
 
 {% endblock %}
