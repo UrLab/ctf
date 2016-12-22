@@ -13,7 +13,7 @@
         </div>
         <div class="collapse navbar-collapse" id="navigation">
             <ul class="nav navbar-nav">
-                <!-- <li><a href="#">Scoreboard</a></li> -->
+                <li><a href="#">Scoreboard</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -24,11 +24,11 @@
                     <ul class="dropdown-menu">
                         <li><a href="#">About</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">Logout</a></li>
+                        <li><a href="{% url 'logout' %}">Logout</a></li>
                     </ul>
                 </li>
                 {% else %}
-                <li><a href="#">Login</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
                 <li><a href="#">Register</a></li>
                 {% endif %}
             </ul>
