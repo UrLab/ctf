@@ -22,6 +22,10 @@ class Challenge(models.Model):
     def __str__(self):
         return self.title
 
+    @property
+    def visible_hint_set(self):
+        return self.hint_set.filter(visible=True)
+
 
 class Hint(models.Model):
     text = models.TextField()

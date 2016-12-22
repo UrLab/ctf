@@ -37,13 +37,13 @@
 <br/>
 <br/>
 
-<div class="raw">
-    {% if challenge.hint_set.all %}
+<div class="row">
+    {% if challenge.visible_hint_set.all %}
     <div class="col-md-6">
         <div class="panel panel-default">
-            <div class="panel-heading">Indices</div>
+            <div class="panel-heading">Hints</div>
             <ul class="list-group">
-                {% for hint in challenge.hint_set.all %}
+                {% for hint in challenge.visible_hint_set.all %}
                 <li class="list-group-item">{{hint.text}}</li>
                 {% endfor %}
             </ul>
