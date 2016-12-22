@@ -56,6 +56,17 @@ body {
     -o-background-size: cover;
 }
 
+.full.full-glitch {
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.6),
+        rgba(0, 0, 0, 0.6)
+    ), url('/static/glitch.jpg') no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
 .full .btn {
     font-size: 2.5em;
 }
@@ -99,6 +110,11 @@ body {
     font-size: 3em;
     color: white;
     margin-bottom: 0.6em;
+}
+
+.full-logo {
+    height: 30vh;
+    margin: 2em;
 }
 
 #b-messages {
