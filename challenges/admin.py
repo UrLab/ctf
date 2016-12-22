@@ -2,19 +2,25 @@ from django.contrib import admin
 
 from .models import Category, Challenge, Hint, Resolution
 
-# Register your models here.
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     pass
 
+
 @admin.register(Challenge)
 class ChallengeAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('title', 'points', 'category', 'attachment')
+    list_filter = ('category', 'points')
+
 
 @admin.register(Hint)
 class HintAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('text', 'visible', 'challenge')
+    list_filter = ('visible',)
+
 
 @admin.register(Resolution)
 class ResolutionAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('team', 'challenge', 'time')
+    list_filter = ('challenge', 'time')
