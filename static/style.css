@@ -14,6 +14,16 @@ body {
 }
 
 .full {
+    height: 100vh;
+    min-height: 20em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
+.full.full-bombe {
     background: linear-gradient(
         rgba(0, 0, 0, 0.7),
         rgba(0, 0, 0, 0.7)
@@ -22,13 +32,47 @@ body {
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
-    height: 100vh;
-    min-height: 20em;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: black;
+}
+
+.full.full-dc {
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.7),
+        rgba(0, 0, 0, 0.7)
+    ), url('/static/dc.jpg') no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.full.full-enigma {
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.85),
+        rgba(0, 0, 0, 0.85)
+    ), url('/static/enigma.jpg') no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.full .btn {
+    font-size: 2.5em;
+}
+
+.btn-black {
+    background-color: #333;
+    border-color: #444;
+}
+
+.btn-black:hover {
+    background-color: #222;
+    border-color: #111;
+}
+
+.btn-black:active, .btn-black:focus {
+    background-color: #333;
+    border-color: #222;
 }
 
 #ulb-logo {
@@ -39,6 +83,12 @@ body {
 .full h1 {
     font-weight: bold;
     font-size: 4.5em;
+    color: white;
+}
+
+.full h2 {
+    /*font-weight: bold;*/
+    font-size: 3em;
     color: white;
 }
 
