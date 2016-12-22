@@ -101,7 +101,7 @@ body {
 
 .full h1 {
     font-weight: bold;
-    font-size: 4.5em;
+    font-size: 3em;
     color: white;
 }
 
@@ -111,7 +111,7 @@ body {
 
 .full h2 {
     /*font-weight: bold;*/
-    font-size: 3em;
+    font-size: 2em;
     color: white;
     margin-bottom: 0.6em;
 }
