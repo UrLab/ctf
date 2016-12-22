@@ -14,8 +14,8 @@ body {
 }
 
 .full {
-    height: 100vh;
-    min-height: 20em;
+    min-height: 100vh;
+    /*min-height: 20em;*/
     width: 100%;
     display: flex;
     justify-content: center;
