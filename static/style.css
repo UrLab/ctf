@@ -75,15 +75,23 @@ body {
     border-color: #222;
 }
 
-#ulb-logo {
-    height: 2.5em;
+#title #ulb-logo {
+    height: 3em;
     margin-right: .5em;
+}
+
+#title {
+    font-size: 5em;
 }
 
 .full h1 {
     font-weight: bold;
     font-size: 4.5em;
     color: white;
+}
+
+.full > div {
+    max-width: 80vw;
 }
 
 .full h2 {
