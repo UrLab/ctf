@@ -1,4 +1,4 @@
-Django==1.9.5
+Django>1.10
 django-bootstrap3==7.0.1
 django-debug-toolbar==1.4
 django-markdown-deux==1.0.5

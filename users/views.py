@@ -1,26 +1,28 @@
 from django.shortcuts import render
 
 # Create your views here.
+from users.decorators import team_required
 from .forms import UserForm
 from .models import User, Team
 from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
+from django.views.generic.edit import CreateView
+from django.contrib.auth import login
 
-from users.decorators import team_required
 
+class RegistrationView(CreateView):
+    form_class = UserForm
+    model = User
+    template_name_suffix = '_create_form'
+    success_url = reverse_lazy('home')
 
-def register_new_user(request):
-    if request.method == "POST":
-        form = UserForm(request.POST)
-        if form.is_valid():
-            User.objects.create_user(**form.cleaned_data)
-            return HttpResponseRedirect(reverse('index'))
-    else:
-        form = UserForm()
-    return render(request, 'users/registration.html', {'form': form})
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect(self.success_url)
 
 
 @login_required
