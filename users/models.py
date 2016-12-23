@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.core.urlresolvers import reverse
+from django.conf import settings
 
 import string
 import random
@@ -101,7 +102,10 @@ class Team(models.Model):
         return ''.join([random.choice(pool) for _ in range(30)])
 
     def join_url(self):
-        return "http://ctf.urlab.be%s" % reverse('accept_invite', args=[self.secret_key])
+        return "%s%s" % (
+            settings.ROOT_URL,
+            reverse('accept_invite', args=[self.secret_key])
+        )
 
 
 class Affiliation(models.Model):
