@@ -29,9 +29,10 @@ class DetailView(generic.DetailView):
     template_name = 'challenges/detail.html'
 
     def get(self, request, *args, **kwargs):
+        original = super(DetailView, self).get(request, *args, **kwargs)
         if self.object.phase.start > timezone.now():
             return HttpResponseForbidden("This challenge is not yet available.")
-        return super(DetailView, self).get(request, *args, **kwargs)
+        return original
 
 
 def team_key(group, request):
