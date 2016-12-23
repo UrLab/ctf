@@ -67,7 +67,7 @@ class Team(models.Model):
 
     @property
     def score(self):
-        resolutions = self.resolution_set.order_by('-time')
+        resolutions = self.resolution_set.all()
         score = 0
         for resolution in resolutions:
             score += resolution.challenge.points

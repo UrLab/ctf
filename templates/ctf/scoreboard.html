@@ -35,9 +35,9 @@
             </td>
             <td>{{team.name}}</td>
             <td>{{team.affiliations|join:","}}</td>
-            <td>{{team.score}}</td>
-            {% if team.last_validation %}
-            <td>{{team.last_validation|naturaltime}}</td>
+            <td>{{team.points}}</td>
+            {% if team.last %}
+            <td>{{team.last|naturaltime}}</td>
             {% else %}
             <td>Never</td>
             {% endif %}
