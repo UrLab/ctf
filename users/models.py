@@ -37,7 +37,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name = 'Utilisateur'
 
     USERNAME_FIELD = "username"
-    REQUIRED_FIELDS = ['email']
+    REQUIRED_FIELDS = ['email', 'first_name', 'last_name']
     objects = CustomUserManager()
 
     username = models.CharField(max_length=30, unique=True, verbose_name="nom d'utilisateur")
@@ -45,8 +45,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     created = models.DateTimeField(auto_now_add=True)
     edited = models.DateTimeField(auto_now=True)
 
-    first_name = models.CharField(max_length=127, blank=True)
-    last_name = models.CharField(max_length=127, blank=True)
+    first_name = models.CharField(max_length=127)
+    last_name = models.CharField(max_length=127)
 
     team = models.ForeignKey('users.Team', related_name='members', blank=True, null=True)
     affiliation = models.ForeignKey('users.Affiliation')
