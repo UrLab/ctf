@@ -24,7 +24,7 @@
         <p>
             <br>
             <a href="{% url 'password_reset' %}">Lost password?</a> /
-            <a href="">Register</a>
+            <a href="{% url 'register' %}">Register</a>
         </p>
 
         <input type="hidden" name="next" value="{{ next }}" />
