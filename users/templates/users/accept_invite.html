@@ -13,13 +13,15 @@
             <p>
                 If you want to leave "{{user.team}}" shoot a mail at <a href="mailto:ctf@urlab.be">ctf@urlab.be</a>
                 and we will handle it for you.
+                <br><br>
+                Psssst : to prove your identity, send us this string somewhere in your email : (don't leak it elsewhere) <pre>{{user.proof_token}}</pre>
             </p>
             <p>
                 <p><a href="/" class="btn btn-success">Go back to the home</a></p>
             </p>
         {% elif team.members.count < 4 %}
             <h1>
-                You are beeing invited!<br>
+                You are being invited!<br>
                 {{team}} wants you. Are you in ?
             </h1>
             <form method="post">

@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.core.signing import Signer
 
 import string
 import random
@@ -62,6 +63,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def is_staff(self):
         return self.is_superuser
+
+    def proof_token(self):
+        signer = Signer()
+        return signer.sign(self.username)
 
 
 class Team(models.Model):
