@@ -44,6 +44,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=127, blank=True)
 
     team = models.ForeignKey('users.Team', related_name='members', blank=True, null=True)
+    affiliation = models.ForeignKey('users.Affiliation')
 
     is_active = models.BooleanField(default=True)
 
@@ -79,3 +80,14 @@ class Team(models.Model):
             return resolutions[0].time
         else:
             return None
+
+    @property
+    def affiliations(self):
+        return set([m.affiliation for m in self.members.all()])
+
+
+class Affiliation(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name

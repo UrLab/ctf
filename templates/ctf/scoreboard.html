@@ -9,6 +9,7 @@
         <tr>
             <th>Rank</th>
             <th>Team</th>
+            <th>Affiliation</th>
             <th>Score</th>
             <th>Last validation</th>
         </tr>
@@ -33,6 +34,7 @@
                 {% endif %}
             </td>
             <td>{{team.name}}</td>
+            <td>{{team.affiliations|join:","}}</td>
             <td>{{team.score}}</td>
             {% if team.last_validation %}
             <td>{{team.last_validation|naturaltime}}</td>
