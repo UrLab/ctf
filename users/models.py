@@ -1,5 +1,10 @@
 from django.db import models
 from django.utils import timezone
+from django.core.urlresolvers import reverse
+from django.conf import settings
+
+import string
+import random
 
 from django.contrib.auth.models import AbstractBaseUser, UserManager, PermissionsMixin
 
@@ -60,7 +65,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Team(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=30)
+    secret_key = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -84,6 +90,22 @@ class Team(models.Model):
     @property
     def affiliations(self):
         return set([m.affiliation for m in self.members.all()])
+
+    def save(self, *args, **kwargs):
+        if not self.secret_key:
+            self.secret_key = Team.generate_secret_key()
+        return super(Team, self).save(*args, **kwargs)
+
+    @classmethod
+    def generate_secret_key(cls):
+        pool = string.ascii_letters + string.digits
+        return ''.join([random.choice(pool) for _ in range(30)])
+
+    def join_url(self):
+        return "%s%s" % (
+            settings.ROOT_URL,
+            reverse('accept_invite', args=[self.secret_key])
+        )
 
 
 class Affiliation(models.Model):

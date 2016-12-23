@@ -137,6 +137,7 @@ STATICFILES_DIRS = [
 
 LOGIN_REDIRECT_URL = 'home'
 
+ROOT_URL = "http://ctf.urlab.be"  # DO NOT APPEND A SLASH (but you may append a port)
 
 try:
     from .local_settings import * # NOQA

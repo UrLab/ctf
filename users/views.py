@@ -30,3 +30,8 @@ def join_team(request):
 @team_required
 def show_team(request):
     return render(request, 'users/show_team.html')
+
+
+@login_required
+def accept_invite(request, secret_key):
+    return None

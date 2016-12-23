@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^accounts/register/$', users.views.register_new_user, name='register'),
     url(r'^accounts/team$', users.views.show_team, name='team'),
     url(r'^accounts/team/join$', users.views.join_team, name='join_team'),
+    url(r'^accounts/team/invite/(?P<secret_key>(\d|\w)+)$', users.views.accept_invite, name='accept_invite'),
 ]
