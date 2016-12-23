@@ -52,3 +52,17 @@ def accept_invite(request, secret_key):
         return HttpResponseRedirect(reverse('team'))
     else:
         return render(request, 'users/accept_invite.html', {'team': team})
+
+
+@login_required
+@team_required
+def reset_team_secret(request):
+    if request.method == 'POST':
+        request.user.team.secret_key = ""
+        request.user.team.save()
+
+        messages.add_message(request, messages.SUCCESS, 'Your team join URL has been reset.')
+
+        return HttpResponseRedirect(reverse('team'))
+    else:
+        return render(request, 'users/reset_secret.html')
