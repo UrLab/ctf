@@ -2,31 +2,70 @@
 {% load bootstrap3 %}
 
 {% block content %}
-<h1>{{user.team.name}}</h1>
-Score : {{user.team.score}}
 
-<h2>
-    Members
-    <small>{{user.team.members.all|length}}/4</small>
-</h2>
-{% for member in user.team.members.all %}
-    {{member.first_name}} {{member.last_name}} aka {{member}}
-{% endfor %}
+<div class="page-header">
+    <h1>{{user.team.name}}</h1>
+</div>
 
-<h2>Invite members to your team</h2>
-{% if user.team.members.all|length < 4 %}
-    To invite new members, ask them to register on this website then give them this url :
-    <div class="input-group">
-        <input class="form-control" id="team-url" type="text" readonly value="http://ctf.urlab.be/">
-        <div class="input-group-addon" id="team-url-btn" data-clipboard-target="#team-url">
-            <img src="/static/clippy.svg" class="btn-img" alt="Copy to clipboard">
-        </div>
+<div class="row">
+    <div class="col-md-6 col-lg-8">
+        <h1></h1>
     </div>
+    <div class="col-md-6 col-lg-4">
+        <h1>Manage your team</h1>
+        <h3>
+            Members
+            <small>{{user.team.members.all|length}}/4</small>
+        </h3>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nick</th>
+                    <th>First name</th>
+                    <th>Affiliation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for member in user.team.members.all %}
+                    <tr>
+                        <td>{{member}}</td>
+                        <td>{{member.first_name}}</td>
+                        <td>{{member.affiliation}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3>Invite members to your team</h3>
+        {% if user.team.members.all|length < 4 %}
+            <p>
+                To invite new members, ask them to register on this website then give them this url:<br>
+            </p>
+            <div class="input-group">
+                <input class="form-control" id="team-url" type="text" readonly value="http://ctf.urlab.be/">
+                <div class="input-group-addon" id="team-url-btn" data-clipboard-target="#team-url">
+                    <img src="/static/clippy.svg" class="btn-img" alt="Copy to clipboard">
+                </div>
+            </div>
+            <br>
+            <p>
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                Keep this URL secret! It is the only key to enter into your team.<br>
+                Leaked URL ? <a href="">Reset it now</a>.
+            </p>
 
 
-{% else %}
-    Your team is full, you may not invite anybody anymore...
-{% endif %}
+        {% else %}
+            Your team is full, you may not invite anybody anymore...
+        {% endif %}
+
+        <h3>Problem?</h3>
+
+        <p>You want to change team, you want to rename or delete your team, you have an undesired member in your team ?</p>
+
+        <p>Fire us an email at <a href="mailto:ctf@urlab.be">ctf@urlab.be</a> and we will fix it!</p>
+    </div>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.16/clipboard.min.js"></script>
 <script type="text/javascript">
