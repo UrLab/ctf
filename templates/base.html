@@ -4,51 +4,22 @@
 
 <html>
     <head>
-        <title>{% block title %}Urlab ctf{% endblock %}</title>
+        <title>{% block title %}ULB Capture the Flag{% endblock %}</title>
         {% bootstrap_css %}
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="/static/style.css">
     </head>
 
     <body>
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="{% url 'index' %}">CTF</a>
-                </div>
-                <div class="collapse navbar-collapse" id="navigation">
-                    <ul class="nav navbar-nav">
-                        <li><a href="#">Scoreboard</a></li>
-                    </ul>
+        {% include "navbar.html" %}
 
-                    <ul class="nav navbar-nav navbar-right">
-                        {% if user.is_authenticated %}
-                        <li><a href="#">Team info</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.username}}<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">About</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Logout</a></li>
-                            </ul>
-                        </li>
-                        {% else %}
-                        <li><a href="#">Login</a></li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <div class="col-md-12">
+        <div class="col-md-12" id="b-messages">
         {% bootstrap_messages %}
         </div>
-        <div class="container">
+        {% block out_of_container %}
+        {% endblock %}
+        <div class="container main">
             <div class="row">
                 {% block content %}
                 {% endblock %}
@@ -56,5 +27,6 @@
         </div>
 
         {% bootstrap_javascript jquery=1 %}
+        <script type="text/javascript" src="/static/dynamic-loader-bower.js"></script>
     </body>
 </html>

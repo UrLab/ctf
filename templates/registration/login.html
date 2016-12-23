@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+
+<div class="row">
+    <form method="post" action="{% url 'login' %}" class="form-signin col-md-4 col-md-offset-4 text-center">
+        {% csrf_token %}
+        <h1 class="form-signin-heading">Login</h1>
+
+        <div class="form-group">
+            <input type="text" id="id_username" name="username" class="form-control input-lg" placeholder="Username" required autofocus>
+        </div>
+
+        <div class="form-group">
+            <input type="password" id="id_password" name="password" class="form-control input-lg" placeholder="Password" required>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <p>
+            <br>
+            <a href="{% url 'password_reset' %}">Lost password?</a> /
+            <a href="{% url 'register' %}">Register</a>
+        </p>
+
+        <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+</div>
+
+{% endblock %}

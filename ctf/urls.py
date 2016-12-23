@@ -16,10 +16,12 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from . import views
+import users.views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', include('challenges.urls')),
-    url(r'home', views.home, name="home"),
-    url(r'user', include('users.urls'))
+    url(r'^challenges/', include('challenges.urls')),
+    url(r'^$', views.home, name="home"),
+    url('^', include('django.contrib.auth.urls')),
+    url(r'^register/$', users.views.register_new_user, name='register'),
 ]
