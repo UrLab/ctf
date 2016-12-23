@@ -1,0 +1,9 @@
+{% if user.is_authenticated and not user.team %}
+<div class="alert alert-warning" role="alert">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <strong>You are not part of a team.</strong>
+    To be able to participate and fully use this website, you should first
+    <a href="{% url 'join_team' %}" class="alert-link">
+        join or create a team</a>.
+</div>
+{% endif %}

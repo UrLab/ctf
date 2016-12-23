@@ -11,6 +11,7 @@ from django.utils import timezone
 from ratelimit.decorators import ratelimit
 
 from .models import Challenge, Category, Resolution
+from users.decorators import team_required
 
 
 class ListView(generic.ListView):
@@ -40,8 +41,9 @@ def team_key(group, request):
 
 
 # Ratelimlit at 1 request every 2 second per team
-@ratelimit(key=team_key, rate='1/5s')
 @login_required
+@team_required
+@ratelimit(key=team_key, rate='1/5s')
 def flag(request, pk):
     was_limited = getattr(request, 'limited', False)
     if was_limited:
