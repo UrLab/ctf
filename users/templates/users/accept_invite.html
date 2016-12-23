@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        {% if user.team %}
+            <h1>Invitation to {{team}}</h1>
+            <p>
+                It looks like you have been invited to "{{team}}"
+                but you are already in the "{{user.team}}" team and you can't be in both teams.
+            </p>
+            <p>
+                If you want to leave "{{user.team}}" shoot a mail at <a href="mailto:ctf@urlab.be">ctf@urlab.be</a>
+                and we will handle it for you.
+            </p>
+            <p>
+                <p><a href="/" class="btn btn-success">Go back to the home</a></p>
+            </p>
+        {% elif team.members.count < 4 %}
+            <h1>
+                You are beeing invited!<br>
+                {{team}} wants you. Are you in ?
+            </h1>
+            <form method="post">
+                {% csrf_token %}
+                <div class="btn-group btn-group-justified" role="group">
+                    <div class="btn-group" role="group">
+                        <input type="submit" class="btn btn-lg btn-success" value="Accept">
+                    </div>
+                    <a href="/" class="btn btn-lg btn-danger">Deny</a>
+                </div>
+            </form>
+            <br>
+            <p>
+                {{team}} already has {{team.members.count}} member{{team.members.count|pluralize}} :
+                {{team.members.all|join:","}}.
+            </p>
+            <p class="text-muted">Once in this team, you will be able to participate in the challenges and be able to invite more members in this team.</p>
+        {% else %}
+            <h1>Invitation to {{team}}</h1>
+            <p>It looks like you have been invited to "{{team}}" but it's full (4/4 members), sorry.</p>
+            <p>FYI, the team has {{team.members.all|join:","}} as members.</p>
+            <p><a href="/" class="btn btn-success">Go back to the home</a></p>
+        {% endif %}
+    </div>
+{% endblock %}

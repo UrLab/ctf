@@ -14,12 +14,13 @@
     <body>
         {% include "navbar.html" %}
 
-        <div class="col-md-12" id="b-messages">
-        {% bootstrap_messages %}
-        </div>
         {% block out_of_container %}
         {% endblock %}
+
         <div class="container main">
+            <div class="row">
+                {% bootstrap_messages %}
+            </div>
             <div class="row">
                 {% block content %}
                 {% endblock %}
