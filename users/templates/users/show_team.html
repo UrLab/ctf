@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+<h1>{{user.team.name}}</h1>
+Score : {{user.team.score}}
+
+<h2>
+    Members
+    <small>{{user.team.members.all|length}}/4</small>
+</h2>
+{% for member in user.team.members.all %}
+    {{member.first_name}} {{member.last_name}} aka {{member}}
+{% endfor %}
+
+<h2>Invite members to your team</h2>
+{% if user.team.members.all|length < 4 %}
+    To invite new members, ask them to register on this website then give them this url :
+    <div class="input-group">
+        <input class="form-control" id="team-url" type="text" readonly value="http://ctf.urlab.be/">
+        <div class="input-group-addon" id="team-url-btn" data-clipboard-target="#team-url">
+            <img src="/static/clippy.svg" class="btn-img" alt="Copy to clipboard">
+        </div>
+    </div>
+
+
+{% else %}
+    Your team is full, you may not invite anybody anymore...
+{% endif %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.16/clipboard.min.js"></script>
+<script type="text/javascript">
+    new Clipboard('#team-url-btn');
+</script>
+{% endblock %}

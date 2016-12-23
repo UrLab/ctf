@@ -136,3 +136,15 @@ body {
 .alert-link:hover {
     text-decoration: none;
 }
+
+.btn-img {
+    height: 1em;
+}
+
+#team-url-btn {
+    cursor: pointer;
+}
+
+#team-url-btn:hover {
+    background-color: rgb(208, 208, 208);
+}

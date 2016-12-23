@@ -5,6 +5,9 @@ from .forms import UserForm
 from .models import User
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
+
+from users.decorators import team_required
 
 
 def register_new_user(request):
@@ -18,5 +21,12 @@ def register_new_user(request):
     return render(request, 'users/registration.html', {'form': form})
 
 
+@login_required
 def join_team(request):
     return render(request, 'users/join_team.html')
+
+
+@login_required
+@team_required
+def show_team(request):
+    return render(request, 'users/show_team.html')
