@@ -1,8 +1,53 @@
 {% extends "base.html" %}
 {% load bootstrap3 %}
 
+{% block out_of_container %}
+<div class="full full-bombe">
+    <div>
+        <h1 id="title">
+            <img src="/static/ulb.jpg" id="ulb-logo" alt="ULB">Capture The Flag 2017
+        </h1>
+    </div>
+</div>
+<div class="full full-glitch">
+    <div>
+        <h1>
+            Online qualifications : 17 to 20 February<br>
+            IRL Finals on the 27th.
+        </h1>
+        <h2>Open for every ULB and VUB student.<br> Difficulty ranges from beginner to advanced, everybody is welcome.</h2>
+        <button type="button" class="btn btn-primary btn-black btn-lg">Register now !</button>
+    </div>
+</div>
+
+<div class="full full-enigma">
+    <div>
+        <h1>
+            Teams of 1 to 4 persons, dozens of challenges.
+        </h1>
+        <h2>
+            Cryptography, steganography, reverse engineering, networking,<br> forensics and web challenges.
+        </h2>
+        <button type="button" class="btn btn-primary btn-black btn-lg">Register now !</button>
+    </div>
+</div>
+
+<div class="full full-dc">
+    <div>
+        <a href="https://urlab.be">
+            <img src="/static/urlab.png"/ class="full-logo">
+        </a>
+        <a href="http://cerkinfo.be">
+            <img src="/static/ci.png" class="full-logo">
+        </a>
+        <a href="http://ulb.ac.be">
+            <img src="/static/ulb.jpg" class="full-logo">
+        </a>
+    </div>
+</div>
+
+{% endblock %}
+
 {% block content %}
-<p>
-Bienvenue, voici un super ctf organisé par urlab. si vous voulez vous inscrire, il suffit de suivre ce <a href="#">lien</a>
-</p>
+    Made with love by <a href="https://urlab.be">UrLab</a>, AGPL license. Source on <a href="https://github.com/UrLab/ctf">GitHub</a>.<br><br>
 {% endblock %}

@@ -1,0 +1,130 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.main {
+    margin-top: 30px;
+}
+
+.navbar-brand img {
+    height: 1em;
+    display: inline-block;
+    margin-right: .5em;
+}
+.navbar {
+    margin-bottom: 0;
+    border: 0;
+    box-shadow: none;
+}
+
+.full {
+    min-height: 100vh;
+    /*min-height: 20em;*/
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
+.full.full-bombe {
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.7),
+        rgba(0, 0, 0, 0.7)
+    ), url('/static/bombe.jpg') no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.full.full-dc {
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.7),
+        rgba(0, 0, 0, 0.7)
+    ), url('/static/dc.jpg') no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.full.full-enigma {
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.85),
+        rgba(0, 0, 0, 0.85)
+    ), url('/static/enigma.jpg') no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.full.full-glitch {
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.6),
+        rgba(0, 0, 0, 0.6)
+    ), url('/static/glitch.jpg') no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.full .btn {
+    font-size: 2.5em;
+}
+
+.btn-black {
+    background-color: #333;
+    border-color: #444;
+}
+
+.btn-black:hover {
+    background-color: #222;
+    border-color: #111;
+}
+
+.btn-black:active, .btn-black:focus {
+    background-color: #333;
+    border-color: #222;
+}
+
+#title #ulb-logo {
+    height: 3em;
+    margin-right: .5em;
+}
+
+#title {
+    font-size: 5em;
+}
+
+.full h1 {
+    font-weight: bold;
+    font-size: 3em;
+    color: white;
+}
+
+.full > div {
+    max-width: 80vw;
+}
+
+.full h2 {
+    /*font-weight: bold;*/
+    font-size: 2em;
+    color: white;
+    margin-bottom: 0.6em;
+}
+
+.full-logo {
+    height: 30vh;
+    margin: 2em;
+}
+
+#b-messages {
+    min-height: 0;
+}
+
+#b-messages > div {
+    margin-top: 2em;
+}
