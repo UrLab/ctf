@@ -46,7 +46,7 @@ def accept_invite(request, secret_key):
         if request.user.team:
             return HttpResponseForbidden("You already have a team.")
 
-        messages.add_message(request, messages.SUCCESS, "You joined %s. Welcome on board!" % team)
+        messages.add_message(request, messages.SUCCESS, 'You joined "%s". Welcome on board!' % team)
         request.user.team = team
         request.user.save()
         return HttpResponseRedirect(reverse('team'))
