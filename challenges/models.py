@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Category(models.Model):
     name = models.CharField(max_length=1000)
 
@@ -18,6 +17,7 @@ class Challenge(models.Model):
     category = models.ForeignKey('Category')
     points = models.PositiveSmallIntegerField()
     flag = models.CharField(max_length=255)
+    phase = models.ForeignKey('Phase')
 
     def __str__(self):
         return self.title
@@ -46,3 +46,15 @@ class Resolution(models.Model):
 
     def __str__(self):
         return "Resolution of %s from %s" % (self.challenge, self.team)
+
+
+class Phase(models.Model):
+    name = models.CharField(max_length=100)
+    slug = models.SlugField()
+
+    # TODO : double check timezones
+    start = models.DateTimeField()
+    stop = models.DateTimeField()
+
+    def __str__(self):
+        return self.name

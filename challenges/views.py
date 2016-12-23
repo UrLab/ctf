@@ -3,8 +3,10 @@ from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, HttpResponseBadRequest
+from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpResponseForbidden
 from django.shortcuts import render
+from django.utils import timezone
+
 
 from ratelimit.decorators import ratelimit
 
@@ -26,6 +28,11 @@ class DetailView(generic.DetailView):
     model = Challenge
     template_name = 'challenges/detail.html'
 
+    def get(self, request, *args, **kwargs):
+        if self.object.phase.start > timezone.now():
+            return HttpResponseForbidden("This challenge is not yet available.")
+        return super(DetailView, self).get(request, *args, **kwargs)
+
 
 def team_key(group, request):
     return str(request.user.team.id)
@@ -45,6 +52,8 @@ def flag(request, pk):
     if attempt != challenge.flag:
         messages.add_message(request, messages.ERROR, "You had the wrong flag, sorry...")
     else:
+        if challenge.phase.start > timezone.now() or challenge.phase.stop < timezone.now():
+            return HttpResponseForbidden("This challenge is not active at the moment")
         team = request.user.team
         teams = map(lambda x: x.team, challenge.resolution_set.all())
         if team not in teams:
