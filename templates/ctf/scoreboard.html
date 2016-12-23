@@ -15,7 +15,7 @@
     </thead>
     <tbody>
         {% for team in teams %}
-        <tr {% if team.id == user.team.id %}class="info"{% endif %}>
+        <tr {% if team.id == user.team.id %}class="active"{% endif %}>
             <td>
                 {{forloop.counter}}
                 {% if forloop.counter < 4 %}
