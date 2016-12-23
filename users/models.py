@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
@@ -45,6 +44,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=127, blank=True)
 
     team = models.ForeignKey('users.Team', related_name='members', blank=True, null=True)
+
+    is_active = models.BooleanField(default=True)
 
     def get_short_name(self):
         return self.username

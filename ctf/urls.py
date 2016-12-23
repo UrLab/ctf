@@ -8,6 +8,6 @@ urlpatterns = [
     url(r'^challenges/', include('challenges.urls')),
     url(r'scoreboard/', views.scoreboard, name="scoreboard"),
     url(r'^$', views.home, name="home"),
-    url('^', include('django.contrib.auth.urls')),
-    url(r'^register/$', users.views.register_new_user, name='register'),
+    url('^accounts/', include('django.contrib.auth.urls')),
+    url(r'^accounts/register/$', users.views.register_new_user, name='register'),
 ]
