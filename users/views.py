@@ -17,6 +17,9 @@ class RegistrationView(CreateView):
     form_class = UserForm
     model = User
     template_name_suffix = '_create_form'
+    # TODO : redirect the user to a success page
+    # TODO : maybe propose him to create a team
+    # TODO : and why not a quick FAQ or introduction
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
