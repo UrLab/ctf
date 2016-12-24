@@ -2,7 +2,56 @@
 {% load bootstrap3 %}
 
 {% block content %}
-<h1>You are not part of a team</h1>
-<p>To be able to participate, you must first join or create a team.</p>
-{# TODO : Create or join team #}
+{% if user.team %}
+    <h1>You are already in a team.</h1>
+    <p>You should go back <a href="/">Home</a>.</p>
+{% else %}
+    <h1>You are not yet part of a team...</h1>
+    <div class="alert alert-warning" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        To be able to participate and fully use this website, you should first
+        join or create a team.
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Create a team</h2>
+            <p>
+                To create a team, the only thing you have to do is find a name and put it here.<br>
+                Once your team is created, you will receive an invitation link to give to your team mates.
+            </p>
+            <br>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {% bootstrap_field form.name addon_before='<i class="fa fa-tags"></i>' show_label=False %}
+                {% bootstrap_button "Create team" button_type="submit" button_class="btn-primary" %}
+            </form>
+
+        </div>
+        <div class="col-md-6">
+            <h2>Join a team</h2>
+            <p>
+                This is the list of all teams. If you want to enter one of those, ask an invitation link to a member.
+            </p>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Team name</th>
+                        <th>Member count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for team in teams %}
+                        <tr>
+                            <td>{{team.name}}</td>
+                            <td>{{team.members_count}}<span class="text-muted">/4</span></td>
+                        </tr>
+
+                    {% empty %}
+                        <p class="text-muted">There are no team right now, create one!</p>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endif %}
 {% endblock %}

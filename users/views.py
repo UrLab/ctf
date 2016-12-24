@@ -1,9 +1,6 @@
 from django.shortcuts import render
 
 # Create your views here.
-from users.decorators import team_required
-from .forms import UserForm
-from .models import User, Team
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
@@ -11,6 +8,12 @@ from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 from django.views.generic.edit import CreateView
 from django.contrib.auth import login
+from django.db.models import Count
+
+from users.decorators import team_required
+
+from .forms import UserForm, CreateTeamForm
+from .models import User, Team
 
 
 class RegistrationView(CreateView):
@@ -30,7 +33,23 @@ class RegistrationView(CreateView):
 
 @login_required
 def join_team(request):
-    return render(request, 'users/join_team.html')
+    if request.method == 'POST':
+        if request.user.team:
+            return HttpResponseForbidden("You are already in a team...")
+
+        form = CreateTeamForm(request.POST)
+        if form.is_valid():
+            team = Team.objects.create(name=form.cleaned_data['name'].strip())
+            request.user.team = team
+            request.user.save()
+
+            messages.add_message(request, messages.SUCCESS, 'You created your team. Now invite your team mates !')
+            return HttpResponseRedirect(reverse('team'))
+    else:
+        form = CreateTeamForm()
+
+    teams = Team.objects.annotate(members_count=Count('members')).order_by('-members_count')
+    return render(request, 'users/join_team.html', {'teams': teams, 'form': form})
 
 
 @login_required

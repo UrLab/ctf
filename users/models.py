@@ -70,7 +70,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Team(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, unique=True)
     secret_key = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
