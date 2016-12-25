@@ -9,7 +9,20 @@
 
 <div class="row">
     <div class="col-md-6 col-lg-8">
-        <h1></h1>
+        <h1>
+            Team statistics
+            {% if phase %}
+                <small>{{phase}}</small>
+            {% endif %}
+        </h1>
+        {% if not phase %}
+            <p class="text-muted">There is no active challenges right now. Patience young padawan...</p>
+        {% else %}
+            <div class="panel panel-default">
+                <small>Camembert tout doux TODO</small>
+                <h1>{{completed|length}}/{{total_challenges}}</h1>
+            </div>
+        {% endif %}
     </div>
     <div class="col-md-6 col-lg-4">
         <h1>Manage your team</h1>

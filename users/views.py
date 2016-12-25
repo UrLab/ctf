@@ -9,11 +9,13 @@ from django.contrib import messages
 from django.views.generic.edit import CreateView
 from django.contrib.auth import login
 from django.db.models import Count
+from django.utils import timezone
 
 from users.decorators import team_required
 
 from .forms import UserForm, CreateTeamForm
 from .models import User, Team
+from challenges.models import Challenge, Phase, Resolution
 
 
 class RegistrationView(CreateView):
@@ -55,7 +57,27 @@ def join_team(request):
 @login_required
 @team_required
 def show_team(request):
-    return render(request, 'users/show_team.html')
+    phase = Phase.objects.filter(start__lte=timezone.now(), stop__gte=timezone.now()).first()
+    if not phase:
+        phase = Phase.objects.filter(start__lte=timezone.now()).first()
+
+    if phase:
+        resolutions = Resolution.objects.filter(challenge__phase=phase, team=request.user.team).order_by('-time').select_related('challenge')
+        completed = [r.challenge for r in resolutions]
+        not_completed = Challenge.objects.exclude(id__in=[c.id for c in completed])
+
+        ctx = {
+            'phase': phase,
+            'completed': completed,
+            'not_completed': not_completed,
+            'total_challenges': len(completed) + len(not_completed),
+            'resolutions': resolutions,
+        }
+    else:
+        ctx = {
+            'phase': phase
+        }
+    return render(request, 'users/show_team.html', ctx)
 
 
 @login_required

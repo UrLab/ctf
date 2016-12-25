@@ -41,7 +41,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['email', 'first_name', 'last_name']
     objects = CustomUserManager()
 
-    username = models.CharField(max_length=30, unique=True, verbose_name="nom d'utilisateur")
+    username = models.CharField(max_length=30, unique=True)
     email = models.EmailField(max_length=255, unique=True)
     created = models.DateTimeField(auto_now_add=True)
     edited = models.DateTimeField(auto_now=True)
