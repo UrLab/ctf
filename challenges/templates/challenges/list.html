@@ -1,55 +1,60 @@
 {% extends "base.html" %}
 {% load bootstrap3 %}
 {% load teams %}
+{% load markdown_deux_tags %}
 
 {% block content %}
 
 {% include "users/team_warning.html" %}
 
-<h1>Challenges</h1>
-{% for category in categories %}
-<div class="col-lg-6">
-<div class="panel panel-default">
-    <div class="panel-heading">{{category.name}}</div>
+<div class="page-header">
+    <h1>
+        Challenges
+        <small>{{phase}}</small>
+    </h1>
+</div>
 
-    <table class="table" align="center">
-        <thead>
-        <tr>
-            <th class="col-xs-1"></th>
-            <th class="col-xs-1">Points</th>
-            <th>Name</th>
-            <th class="col-xs-1">Flagged</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for challenge in category.challenge_set.all %}
-            {% teams challenge.resolution_set.all as ts%}
-            <tr class={%if user.team in ts %}"success"{% else %}""{% endif %}>
-                <td>
-                    {% if user.team in ts %}
-                        <input type="checkbox" disabled checked>
-                    {% else %}
-                        <input type="checkbox" disabled>
-                    {% endif %}
-                </td>
-                <td>{{challenge.points}}</td>
-                <td><a href={% url 'detail' challenge.id %}>{{challenge.title}}</a></td>
-                <td>
-                    {{challenge.resolution_set.count}}
-                </td>
-            </tr>
-        {% empty %}
-            <tr>
-                <td></td>
-                <td colspan="4">No challenges are available in this category</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+
+<div class="row">
+    <div class="col-md-12">
+        {{phase.description|markdown}}<br>
+    </div>
+    {% for category in categories %}
+        <div class="col-lg-6">
+            <div class="panel panel-default challenge-panel">
+                <div class="panel-heading">{{category.name}}</div>
+
+                <table class="table" align="center">
+                    <thead>
+                    <tr>
+                        <th class="col-xs-1">Points</th>
+                        <th>Name</th>
+                        <th class="col-xs-1">Flagged</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for challenge in category.this_phase_challenges %}
+                        {% teams challenge.resolution_set.all as ts%}
+                        <tr class={%if user.team in ts %}"success"{% else %}""{% endif %}>
+                            <td>{{challenge.points}}</td>
+                            <td><a href={% url 'detail' challenge.id %}>{{challenge.title}}</a></td>
+                            <td>
+                                {{challenge.resolution_set.count}}
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td></td>
+                            <td colspan="2" class="text-muted">No challenges are available in this category</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% empty %}
+        <div class="alert alert-warning" role="alert">No challenges are available right now...</div>
+    {% endfor %}
 </div>
-</div>
-{% empty %}
-    <div class="alert alert-warning" role="alert">No challenges are available right now...</div>
-{% endfor %}
 
 {% endblock %}

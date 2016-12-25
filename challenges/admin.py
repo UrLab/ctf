@@ -10,8 +10,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Challenge)
 class ChallengeAdmin(admin.ModelAdmin):
-    list_display = ('title', 'points', 'category', 'attachment')
-    list_filter = ('category', 'points')
+    list_display = ('title', 'points', 'category', 'attachment', 'phase')
+    list_filter = ('category', 'points', 'phase')
 
 
 @admin.register(Hint)

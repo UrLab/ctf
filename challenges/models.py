@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Category(models.Model):
     name = models.CharField(max_length=1000)
 
@@ -51,6 +52,7 @@ class Resolution(models.Model):
 class Phase(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField()
+    description = models.TextField(default="")
 
     # TODO : double check timezones
     start = models.DateTimeField()

@@ -10,19 +10,23 @@ from django.utils import timezone
 
 from ratelimit.decorators import ratelimit
 
-from .models import Challenge, Category, Resolution
+from .models import Challenge, Category, Resolution, Phase
 from users.decorators import team_required
 
 
-class ListView(generic.ListView):
-    template_name = 'challenges/list.html'
-    model = Challenge
-    context_object_name = 'challenges_list'
+@login_required
+def list_challenges(request):
+    phase = Phase.objects.filter(start__lte=timezone.now(), stop__gte=timezone.now()).first()
 
-    def get_context_data(self, **kwargs):
-        context = super(ListView, self).get_context_data(**kwargs)
-        context["categories"] = Category.objects.all()
-        return context
+    categories = Category.objects.all()
+    for category in categories:
+        category.this_phase_challenges = category.challenge_set.filter(phase=phase)
+
+    ctx = {
+        'phase': phase,
+        'categories': categories,
+    }
+    return render(request, "challenges/list.html", ctx)
 
 
 class DetailView(generic.DetailView):

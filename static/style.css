@@ -148,3 +148,7 @@ body {
 #team-url-btn:hover {
     background-color: rgb(208, 208, 208);
 }
+
+.challenge-panel {
+    min-height: 15em;
+}
