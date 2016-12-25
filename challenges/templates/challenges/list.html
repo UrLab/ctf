@@ -17,7 +17,9 @@
 
 <div class="row">
     <div class="col-md-12">
-        {{phase.description|markdown}}<br>
+        <div class="well phase-description">
+            {{phase.description|markdown}}
+        </div>
     </div>
     {% for category in categories %}
         <div class="col-lg-6">
@@ -45,7 +47,7 @@
                     {% empty %}
                         <tr>
                             <td></td>
-                            <td colspan="2" class="text-muted">No challenges are available in this category</td>
+                            <td colspan="2" class="text-muted">No challenges are available in this category right now</td>
                         </tr>
                     {% endfor %}
                     </tbody>

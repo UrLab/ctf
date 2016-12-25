@@ -152,3 +152,11 @@ body {
 .challenge-panel {
     min-height: 15em;
 }
+
+.page-header {
+    margin-top: 0;
+}
+
+.phase-description p {
+    margin-bottom: 0;
+}

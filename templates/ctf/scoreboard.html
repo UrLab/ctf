@@ -4,6 +4,11 @@
 
 {% block content %}
 {% include "users/team_warning.html" %}
+
+<div class="page-header">
+    <h1>Scoreboard</h1>
+</div>
+
 <table class="table table-hover">
     <thead>
         <tr>
@@ -33,7 +38,13 @@
                     ></span>
                 {% endif %}
             </td>
-            <td>{{team.name}}</td>
+            <td>
+                {% if team.id == user.team.id %}
+                    <strong>{{team.name}}</strong>
+                {% else %}
+                    {{team.name}}
+                {% endif %}
+            </td>
             <td>{{team.affiliations|join:","}}</td>
             <td>{{team.points}}</td>
             {% if team.last %}
