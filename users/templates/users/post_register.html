@@ -5,7 +5,7 @@
 
 <div class="page-header">
     <h1>
-        Welcome on our CTF platform!
+        Welcome on our CTF platform! <a href="{% url 'challenge_list'%}" class="btn btn-default">Go to the challenges!</a>
     </h1>
 </div>
 
@@ -26,7 +26,8 @@
         <h3>Join a team</h3>
         {% if user.team %}
          <p>
-            It looks like you are already in a team, that's good. You can go to your <a href="{% url 'team' %}">Team page</a> to invite more members or view some stats.
+            It looks like you are already in a team, that's good. You can go to your
+            <a href="{% url 'team' %}" >Team page</a> to invite more members or view some stats.
         </p>
         {% else %}
         <p>To be able to compete and fully use this website, you first have to join or create a team.<br>
@@ -38,7 +39,8 @@
             and we will try to find you a team.
         </p>
 
-            To create a team, go to the <a href="">team creation page</a>. Once your team is created, you will receive an invitation link to give to your team mates.<br>
+            To create a team, go to the <a href="{% url 'join_team' %}">team creation page</a>.
+            Once your team is created, you will receive an invitation link to give to your team mates.<br>
 
             If you want to join a team, ask an invitation link to a member of the team and you will be able to join.
 
@@ -46,6 +48,10 @@
         <h3>Join us on IRC</h3>
         <p>
             We have an IRC channel :
+            <span class="fa-stack fa-lg" style="font-size: 0.8em">
+              <i class="fa fa-square fa-stack-2x"></i>
+              <i class="fa fa-terminal fa-stack-1x fa-inverse"></i>
+            </span>
             <a href="http://webchat.freenode.net/?nick=CTFuser.&channels=%23ctfulb&uio=MTY9dHJ1ZSY5PXRydWUmMTE9MjQ276">#ctfulb</a>
             on freenode. Feel free to join!<br>
             You can also find us on <a href="https://facebook.com/ctfulb">Facebook</a>
