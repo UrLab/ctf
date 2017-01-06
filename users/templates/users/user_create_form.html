@@ -5,7 +5,7 @@
 
 <div class="page-header">
     <h1>
-        Create on account
+        Create an account
     </h1>
 </div>
 
@@ -26,7 +26,7 @@
             {% endfor%}
         </div>
         <div class="form-group col-md-6 {% if form.email.errors %}has-error{% endif%}">
-            <label for="email">Email address<span class="text-muted">*</span></label>
+            <label for="email">Email address<span class="text-muted">* &nbsp;&nbsp;Your academic email is better.</span></label>
             <input type="email" class="form-control" id="id_email" name="email" required value="{{form.email.value}}" placeholder="Email">
             {% for error in form.email.errors%}
                 <span class="help-block">{{error}}</span>
@@ -56,7 +56,7 @@
             {% endfor%}
         </div>
         <div class="form-group col-md-6 {% if form.password2.errors %}has-error{% endif%}">
-            <label for="password2">Password (again)<span class="text-muted">*</span></label>
+            <label for="password2">Password<span class="text-muted">* &nbsp;&nbsp;Again, for verification.</span></label>
             <input type="password" class="form-control" id="id_password2" name="password2" required value="{{form.password2.value}}" placeholder="Password (again)">
             {% for error in password2.errors%}
                 <span class="help-block">{{error}}</span>
@@ -64,7 +64,7 @@
         </div>
 
         <div class="form-group col-md-6 {% if form.affiliation.errors %}has-error{% endif%}">
-            <label for="id_affiliation">Affiliation<span class="text-muted">*</span></label>
+            <label for="id_affiliation">Affiliation<span class="text-muted">* &nbsp;&nbsp;What are you studying ?</span></label>
             <select id="id_affiliation" name="affiliation" class="form-control" required>
                 {% for x,y in form.fields.affiliation.choices %}
                     <option value="{{ x }}" {% if form.affiliation.value|stringformat:"s" == x|stringformat:"s" %} selected{% endif %}>
@@ -84,7 +84,7 @@
 
         <div class="col-md-12">
             <button type="submit" class="btn btn-success btn-lg">
-                {% bootstrap_icon "check" %} Submit
+                {% bootstrap_icon "check" %} Create my account
             </button>
         </div>
         <div class="col-md-12">

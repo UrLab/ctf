@@ -10,7 +10,11 @@
 <div class="row">
     <form method="post" action="{% url 'login' %}" class="form-signin col-md-4 col-md-offset-4 text-center">
         {% csrf_token %}
-        <h1 class="form-signin-heading">Login</h1>
+        <h1 class="form-signin-heading">
+            <div class="page-header">
+                Login
+            </div>
+        </h1>
 
         <div class="form-group">
             <input type="text" id="id_username" name="username" class="form-control input-lg" placeholder="Username" required autofocus>
