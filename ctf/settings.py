@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'bootstrap3',
     'markdown_deux',
     'debug_toolbar',
+
+    'raven.contrib.django.raven_compat',
 ]
 
 AUTH_USER_MODEL = "users.User"

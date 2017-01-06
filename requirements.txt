@@ -4,3 +4,4 @@ django-debug-toolbar==1.4
 django-markdown-deux==1.0.5
 sqlparse<0.2
 django-ratelimit
+raven
