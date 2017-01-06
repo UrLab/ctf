@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+
+<div class="page-header">
+    <h1>
+        Welcome on our CTF platform!
+    </h1>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Are you new to CTFs ?</h2>
+        <p class="text-muted">
+            If you already participated to CTFs, you may safely skip this part.
+        </p>
+        <p>Coming soon!</p>
+    </div>
+    <div class="col-md-6">
+        <h2>What to do next ?</h2>
+        <p>
+            Congrats, you are now registered on the CTF platform and you are nearly ready to compete.
+            What could you do next ?
+        </p>
+        <h3>Join a team</h3>
+        {% if user.team %}
+         <p>
+            It looks like you are already in a team, that's good. You can go to your <a href="{% url 'team' %}">Team page</a> to invite more members or view some stats.
+        </p>
+        {% else %}
+        <p>To be able to compete and fully use this website, you first have to join or create a team.<br>
+        Being in a team is mandatory to compete in the qualifications and the finale.</p>
+        <p></p>
+
+        <p class=text-muted>
+            If you don't have any team mates, send us an email at <a href="mailto:ctf@urlab.be">ctf@urlab.be</a>
+            and we will try to find you a team.
+        </p>
+
+            To create a team, go to the <a href="">team creation page</a>. Once your team is created, you will receive an invitation link to give to your team mates.<br>
+
+            If you want to join a team, ask an invitation link to a member of the team and you will be able to join.
+
+        {% endif %}
+        <h3>Join us on IRC</h3>
+        <p>
+            We have an IRC channel :
+            <a href="http://webchat.freenode.net/?nick=CTFuser.&channels=%23ctfulb&uio=MTY9dHJ1ZSY5PXRydWUmMTE9MjQ276">#ctfulb</a>
+            on freenode. Feel free to join!<br>
+            You can also find us on <a href="https://facebook.com/ctfulb">Facebook</a>
+            and <a href="https://twitter.com/ctfulb">Twitter</a>.
+        </p>
+        <h3>Solve some challenges</h3>
+        <p>
+            And now it's fun time! <a href="{% url 'challenge_list' %}">Go and solve some challenges</a>!
+        </p>
+
+        <p>
+            The warm-up round is only for the fun but it might be a good idea to get acquainted with the platform.
+        </p>
+    </div>
+
+    <div class="col-md-12">
+        <hr>
+        <h1 class="text-center">Good luck!</h1>
+    </div>
+
+</div>
+
+{% endblock %}

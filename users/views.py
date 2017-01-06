@@ -22,10 +22,7 @@ class RegistrationView(CreateView):
     form_class = UserForm
     model = User
     template_name_suffix = '_create_form'
-    # TODO : redirect the user to a success page
-    # TODO : maybe propose him to create a team
-    # TODO : and why not a quick FAQ or introduction
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('post_register')
 
     def form_valid(self, form):
         user = form.save()
@@ -113,3 +110,8 @@ def reset_team_secret(request):
         return HttpResponseRedirect(reverse('team'))
     else:
         return render(request, 'users/reset_secret.html')
+
+
+@login_required
+def post_register(request):
+    return render(request, 'users/post_register.html')

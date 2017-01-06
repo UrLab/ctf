@@ -32,6 +32,8 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.username}}<span class="caret"></span></a>
                     <ul class="dropdown-menu">
+                        <li><a href="{% url 'post_register' %}">Welcome page</a></li>
+                        <li><a href="">Change password</a></li>
                         {% if user.is_staff %}
                             <li><a href="/admin">Admin</a></li>
                         {% endif %}

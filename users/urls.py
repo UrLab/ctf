@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     url(r'^register/$', views.RegistrationView.as_view(), name='register'),
+    url(r'^register/done$', views.post_register, name='post_register'),
     url(r'^team$', views.show_team, name='team'),
     url(r'^team/join$', views.join_team, name='join_team'),
     url(r'^team/reset-secret-url$', views.reset_team_secret, name='reset_team_secret'),
