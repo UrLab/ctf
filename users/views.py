@@ -57,6 +57,7 @@ def join_team(request):
 @login_required
 @team_required
 def show_team(request):
+    # TODO : refactor get phase in a fct
     phase = Phase.objects.filter(start__lte=timezone.now(), stop__gte=timezone.now()).first()
     if not phase:
         phase = Phase.objects.filter(start__lte=timezone.now()).first()
