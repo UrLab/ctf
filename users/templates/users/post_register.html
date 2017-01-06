@@ -23,26 +23,29 @@
             Congrats, you are now registered on the CTF platform and you are nearly ready to compete.
             What could you do next ?
         </p>
-        <h3>Join a team</h3>
         {% if user.team %}
-         <p>
-            It looks like you are already in a team, that's good. You can go to your
-            <a href="{% url 'team' %}" >Team page</a> to invite more members or view some stats.
-        </p>
+            <h3>Join a team</h3>
+             <p>
+                It looks like you are already in a team, that's good. You can go to your
+                <a href="{% url 'team' %}" >Team page</a> to invite more members or view some stats.
+            </p>
         {% else %}
-        <p>To be able to compete and fully use this website, you first have to join or create a team.<br>
-        Being in a team is mandatory to compete in the qualifications and the finale.</p>
-        <p></p>
+            <h3><s>Join a team</s></h3>
+            <p>To be able to compete and fully use this website, you first have to join or create a team.<br>
+            Being in a team is mandatory to compete in the qualifications and the finale.</p>
+            <p></p>
 
-        <p class=text-muted>
-            If you don't have any team mates, send us an email at <a href="mailto:ctf@urlab.be">ctf@urlab.be</a>
-            and we will try to find you a team.
-        </p>
+            <p class=text-muted>
+                If you don't have any team mates, send us an email at <a href="mailto:ctf@urlab.be">ctf@urlab.be</a>
+                and we will try to find you a team.
+            </p>
 
-            To create a team, go to the <a href="{% url 'join_team' %}">team creation page</a>.
-            Once your team is created, you will receive an invitation link to give to your team mates.<br>
+            <p>
+                To create a team, go to the <a href="{% url 'join_team' %}">team creation page</a>.
+                Once your team is created, you will receive an invitation link to give to your team mates.<br>
 
-            If you want to join a team, ask an invitation link to a member of the team and you will be able to join.
+                If you want to join a team, ask an invitation link to a member of the team and you will be able to join.
+            </p>
 
         {% endif %}
         <h3>Join us on IRC</h3>
