@@ -24,13 +24,13 @@
             What could you do next ?
         </p>
         {% if user.team %}
-            <h3>Join a team</h3>
+            <h3><s>Join a team</s></h3>
              <p>
                 It looks like you are already in a team, that's good. You can go to your
                 <a href="{% url 'team' %}" >Team page</a> to invite more members or view some stats.
             </p>
         {% else %}
-            <h3><s>Join a team</s></h3>
+            <h3>Join a team</h3>
             <p>To be able to compete and fully use this website, you first have to join or create a team.<br>
             Being in a team is mandatory to compete in the qualifications and the finale.</p>
             <p></p>
