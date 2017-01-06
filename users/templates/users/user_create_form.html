@@ -2,14 +2,98 @@
 {% load bootstrap3 %}
 
 {% block content %}
+
+<div class="page-header">
+    <h1>
+        Create on account
+    </h1>
+</div>
+
+
 <form method="post" action="">
     {% csrf_token %}
-    {% bootstrap_form form %}
-    {% buttons %}
-    <button type="submit" class="btn btn-primary">
-            {% bootstrap_icon "check" %} Submit
-        </button>
-    {% endbuttons %}
+
+    <div class="row">
+        <div class="col-md-12">
+            {% bootstrap_form_errors form %}
+        </div>
+{# {% bootstrap_form form %} #}
+        <div class="form-group col-md-6 {% if form.username.errors %}has-error{% endif%}">
+            <label for="username">Username<span class="text-muted">*</span></label>
+            <input type="text" class="form-control" id="id_username" name="username" required value="{{form.username.value}}" placeholder="Username">
+            {% for error in form.username.errors%}
+                <span class="help-block">{{error}}</span>
+            {% endfor%}
+        </div>
+        <div class="form-group col-md-6 {% if form.email.errors %}has-error{% endif%}">
+            <label for="email">Email address<span class="text-muted">*</span></label>
+            <input type="email" class="form-control" id="id_email" name="email" required value="{{form.email.value}}" placeholder="Email">
+            {% for error in form.email.errors%}
+                <span class="help-block">{{error}}</span>
+            {% endfor%}
+        </div>
+
+        <div class="form-group col-md-6 {% if form.first_name.errors %}has-error{% endif%}">
+            <label for="first_name">First name<span class="text-muted">*</span></label>
+            <input type="text" class="form-control" id="id_first_name" name="first_name" required value="{{form.first_name.value}}" placeholder="First name">
+            {% for error in form.first_name.errors%}
+                <span class="help-block">{{error}}</span>
+            {% endfor%}
+        </div>
+        <div class="form-group col-md-6 {% if form.last_name.errors %}has-error{% endif%}">
+            <label for="last_name">Last name<span class="text-muted">*</span></label>
+            <input type="text" class="form-control" id="id_last_name" name="last_name" required value="{{form.last_name.value}}" placeholder="Last name">
+            {% for error in form.last_name.errors%}
+                <span class="help-block">{{error}}</span>
+            {% endfor%}
+        </div>
+
+        <div class="form-group col-md-6 {% if form.password1.errors %}has-error{% endif%}">
+            <label for="password1">Password<span class="text-muted">*</span></label>
+            <input type="password" class="form-control" id="id_password1" name="password1" required value="{{form.password1.value}}" placeholder="Password">
+            {% for error in password1.errors%}
+                <span class="help-block">{{error}}</span>
+            {% endfor%}
+        </div>
+        <div class="form-group col-md-6 {% if form.password2.errors %}has-error{% endif%}">
+            <label for="password2">Password (again)<span class="text-muted">*</span></label>
+            <input type="password" class="form-control" id="id_password2" name="password2" required value="{{form.password2.value}}" placeholder="Password (again)">
+            {% for error in password2.errors%}
+                <span class="help-block">{{error}}</span>
+            {% endfor%}
+        </div>
+
+        <div class="form-group col-md-6 {% if form.affiliation.errors %}has-error{% endif%}">
+            <label for="id_affiliation">Affiliation<span class="text-muted">*</span></label>
+            <select id="id_affiliation" name="affiliation" class="form-control" required>
+                {% for x,y in form.fields.affiliation.choices %}
+                    <option value="{{ x }}" {% if form.affiliation.value|stringformat:"s" == x|stringformat:"s" %} selected{% endif %}>
+                        {{ y }}
+                    </option>
+                {% endfor %}
+            </select>
+            {% for error in form.affiliation.errors%}
+                <span class="help-block">{{error}}</span>
+            {% endfor%}
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="">Team</label>
+            <input type="text" disabled class="form-control" id="" placeholder="You will be able to join or create a team later.">
+        </div>
+
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-success btn-lg">
+                {% bootstrap_icon "check" %} Submit
+            </button>
+        </div>
+        <div class="col-md-12">
+            <br>
+            <p class="text-muted">Fields marked with a * are mandatory.</p>
+        </div>
+
+    </div>
+
 
 </form>
 
