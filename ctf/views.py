@@ -3,7 +3,8 @@ from django.db.models import Sum, Max
 from django.db.models.functions import Coalesce
 from django.utils import timezone
 
-from users.models import Team, Phase
+from users.models import Team
+from challenges.models import Phase
 
 
 def home(request):
