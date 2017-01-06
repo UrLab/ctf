@@ -1,7 +1,13 @@
 {% extends "base.html" %}
+
 {% load bootstrap3 %}
 
+{%block extrahead %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
 {% block content %}
+{% regroup completed by category as categories %}
 
 <div class="page-header">
     <h1>{{user.team.name}}</h1>
@@ -12,18 +18,19 @@
         <h1>
             Team statistics
             {% if phase %}
-                <small>{{phase}}</small>
+            <small>{{phase}}</small>
             {% endif %}
         </h1>
         {% if not phase %}
-            <p class="text-muted">There is no active challenges right now. Patience young padawan...</p>
+        <p class="text-muted">There is no active challenges right now. Patience young padawan...</p>
         {% else %}
-            <p class="text-muted">Coming soon...</p>
-            <!-- <div class="panel panel-default">
-                <small>Camembert tout doux TODO</small>
-                <h1>{{completed|length}}/{{total_challenges}}</h1>
-            </div> -->
-        {% endif %}
+            <div class="col-md-6">
+                <div id="chart-percent-res"></div>
+            </div>
+            <div class="col-md-6">
+                <div id="res-per-cat"></div>
+            </div>
+            {% endif %}
     </div>
     <div class="col-md-6 col-lg-4">
         <h1>Manage your team</h1>
@@ -41,36 +48,36 @@
             </thead>
             <tbody>
                 {% for member in user.team.members.all %}
-                    <tr>
-                        <td>{{member}}</td>
-                        <td>{{member.first_name}}</td>
-                        <td>{{member.affiliation}}</td>
-                    </tr>
+                <tr>
+                    <td>{{member}}</td>
+                    <td>{{member.first_name}}</td>
+                    <td>{{member.affiliation}}</td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
 
         <h3>Invite members to your team</h3>
         {% if user.team.members.all|length < 4 %}
-            <p>
-                To invite new members, ask them to register on this website then give them this url:<br>
-            </p>
-            <div class="input-group">
-                <input class="form-control" id="team-url" type="text" readonly value="{{user.team.join_url}}">
-                <div class="input-group-addon" id="team-url-btn" data-clipboard-target="#team-url">
-                    <img src="/static/clippy.svg" class="btn-img" alt="Copy to clipboard">
-                </div>
+        <p>
+        To invite new members, ask them to register on this website then give them this url:<br>
+        </p>
+        <div class="input-group">
+            <input class="form-control" id="team-url" type="text" readonly value="{{user.team.join_url}}">
+            <div class="input-group-addon" id="team-url-btn" data-clipboard-target="#team-url">
+                <img src="/static/clippy.svg" class="btn-img" alt="Copy to clipboard">
             </div>
-            <br>
-            <p>
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                Keep this URL secret! It is the only key to enter into your team.<br>
-                Leaked URL ? <a href="{% url 'reset_team_secret' %}">Reset it now</a>.
-            </p>
+        </div>
+        <br>
+        <p>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        Keep this URL secret! It is the only key to enter into your team.<br>
+        Leaked URL ? <a href="{% url 'reset_team_secret' %}">Reset it now</a>.
+        </p>
 
 
         {% else %}
-            Your team is full, you may not invite anybody anymore...
+        Your team is full, you may not invite anybody anymore...
         {% endif %}
 
         <h3>Problem?</h3>
@@ -78,16 +85,63 @@
         <p>You want to change team, you want to rename or delete your team, you have an undesired member in your team ?</p>
 
         <p>
-            Fire us an email at <a href="mailto:ctf@urlab.be">ctf@urlab.be</a> and we will fix it!
-            <br><br>
-            Psssst : to prove your identity, send us this string somewhere in your email : (don't leak it elsewhere)
-            <pre>{{user.proof_token}}</pre>
+        Fire us an email at <a href="mailto:ctf@urlab.be">ctf@urlab.be</a> and we will fix it!
+        <br><br>
+        Psssst : to prove your identity, send us this string somewhere in your email : (don't leak it elsewhere)
+        <pre>{{user.proof_token}}</pre>
         </p>
     </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.16/clipboard.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
 <script type="text/javascript">
-    new Clipboard('#team-url-btn');
+new Clipboard('#team-url-btn');
+</script>
+
+<script type="text/javascript">
+var reschart = c3.generate({
+    bindto: '#chart-percent-res',
+    data: {
+        columns: [
+            ['Solved', {{completed|length}}],
+            ['Unsolved', {{total_challenges}}-{{completed|length}}]
+        ],
+        type: 'donut',
+        colors: {
+            'Solved': '#5cb85c',
+            'Unsolved': '#cacaca'
+        }
+    },
+    donut: {
+        title: "Resolutions",
+        label: {
+            format: function (value, ratio, id) {
+                return d3.format()(value);
+            }
+        }
+    }
+});
+
+var catchart = c3.generate({
+    bindto: "#res-per-cat",
+    data: {
+        columns: [
+        {% for cat in categories %}
+        ['{{cat.grouper.name}}', {{cat.list|length}}],
+        {% endfor %}
+        ],
+        type : 'donut',
+    },
+    donut: {
+        title: "Categories",
+        label: {
+            format: function (value, ratio, id) {
+                return d3.format()(value);
+            }
+        }
+    }
+});
 </script>
 {% endblock %}
