@@ -130,9 +130,14 @@ var catchart = c3.generate({
         columns: [
         {% for cat in categories %}
         ['{{cat.grouper.name}}', {{cat.list|length}}],
+        {% empty %}
+        ['Empty', {{total_challenges}}],
         {% endfor %}
         ],
         type : 'donut',
+        colors: {
+            'Empty': '#cacaca'
+        }
     },
     donut: {
         title: "Categories",
