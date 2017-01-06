@@ -26,7 +26,10 @@ class CustomUserManager(UserManager):
         return self._create_user(username, email, password, **extra_fields)
 
     def create_superuser(self, username, email, password, **extra_fields):
-        return self._create_user(username, email, password, is_superuser=True, **extra_fields)
+        aff = Affiliation.objects.first()
+        if not aff:
+            aff = Affiliation.objects.create(name="Master en Informatique ULB")
+        return self._create_user(username, email, password, is_superuser=True, affiliation=aff, **extra_fields)
 
     def get_by_natural_key(self, username):
         # makes user matching case insensitive
