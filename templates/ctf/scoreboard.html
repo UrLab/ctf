@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load bootstrap3 %}
 {% load humanize %}
+{% load markdown_deux_tags %}
 
 {% block content %}
 {% include "users/team_warning.html" %}
@@ -12,6 +13,15 @@
             <small>{{phase}}</small>
         {% endif %}
     </h1>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="well phase-description">
+            {{phase.description|markdown}}
+        </div>
+    </div>
 </div>
 
 <table class="table table-hover">
