@@ -24,13 +24,8 @@
         {% if not phase %}
         <p class="text-muted">There is no active challenges right now. Patience young padawan...</p>
         {% else %}
-            <div class="col-md-6">
-                <div id="chart-percent-res"></div>
-            </div>
-            <div class="col-md-6">
-                <div id="res-per-cat"></div>
-            </div>
-            {% endif %}
+        <div id="res-per-cat"></div>
+        {% endif %}
     </div>
     <div class="col-md-6 col-lg-4">
         <h1>Manage your team</h1>
@@ -101,46 +96,22 @@ new Clipboard('#team-url-btn');
 </script>
 
 <script type="text/javascript">
-var reschart = c3.generate({
-    bindto: '#chart-percent-res',
-    data: {
-        columns: [
-            ['Solved', {{completed|length}}],
-            ['Unsolved', {{total_challenges}}-{{completed|length}}]
-        ],
-        type: 'donut',
-        colors: {
-            'Solved': '#5cb85c',
-            'Unsolved': '#cacaca'
-        }
-    },
-    donut: {
-        title: "Resolutions",
-        label: {
-            format: function (value, ratio, id) {
-                return d3.format()(value);
-            }
-        }
-    }
-});
-
 var catchart = c3.generate({
     bindto: "#res-per-cat",
     data: {
         columns: [
         {% for cat in categories %}
         ['{{cat.grouper.name}}', {{cat.list|length}}],
-        {% empty %}
-        ['Empty', {{total_challenges}}],
         {% endfor %}
+        ['Unsolved', {{total_challenges}}-{{completed|length}}]
         ],
         type : 'donut',
         colors: {
-            'Empty': '#cacaca'
+            'Unsolved': '#cacaca'
         }
     },
     donut: {
-        title: "Categories",
+        title: "Resolutions",
         label: {
             format: function (value, ratio, id) {
                 return d3.format()(value);
