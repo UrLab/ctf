@@ -17,7 +17,7 @@
         <div class="col-md-12">
             {% bootstrap_form_errors form %}
         </div>
-{# {% bootstrap_form form %} #}
+
         <div class="form-group col-md-6 {% if form.username.errors %}has-error{% endif%}">
             <label for="username">Username<span class="text-muted">*</span></label>
             <input type="text" class="form-control" id="id_username" name="username" required {% if form.username.value %} value="{{form.username.value}}" {% endif %} placeholder="Username">
@@ -32,7 +32,9 @@
                 <span class="help-block">{{error}}</span>
             {% endfor%}
         </div>
+    </div>
 
+    <div class="row">
         <div class="form-group col-md-6 {% if form.first_name.errors %}has-error{% endif%}">
             <label for="first_name">First name<span class="text-muted">*</span></label>
             <input type="text" class="form-control" id="id_first_name" name="first_name" required {% if form.first_name.value %} value="{{form.first_name.value}}" {% endif %} placeholder="First name">
@@ -47,7 +49,9 @@
                 <span class="help-block">{{error}}</span>
             {% endfor%}
         </div>
+    </div>
 
+    <div class="row">
         <div class="form-group col-md-6 {% if form.password1.errors %}has-error{% endif%}">
             <label for="password1">Password<span class="text-muted">*</span></label>
             <input type="password" class="form-control" id="id_password1" name="password1" required {% if form.password1.value %} value="{{form.password1.value}}" {% endif %} placeholder="Password">
@@ -62,7 +66,9 @@
                 <span class="help-block">{{error}}</span>
             {% endfor%}
         </div>
+    </div>
 
+    <div class="row">
         <div class="form-group col-md-6 {% if form.affiliation.errors %}has-error{% endif%}">
             <label for="id_affiliation">Affiliation<span class="text-muted">* &nbsp;&nbsp;What are you studying ?</span></label>
             <select id="id_affiliation" name="affiliation" class="form-control" required>
@@ -81,7 +87,9 @@
             <label for="">Team</label>
             <input type="text" disabled class="form-control" id="" placeholder="You will be able to join or create a team later.">
         </div>
+    </div>
 
+    <div class="row">
         <div class="col-md-12">
             <button type="submit" class="btn btn-success btn-lg">
                 {% bootstrap_icon "check" %} Create my account

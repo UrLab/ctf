@@ -3,11 +3,18 @@ from django.utils import timezone
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.core.signing import Signer
+from django.core.exceptions import ValidationError
+
 
 import string
 import random
 
 from django.contrib.auth.models import AbstractBaseUser, UserManager, PermissionsMixin
+
+
+def username_case_insensitive_unique(value):
+    if User.objects.filter(username__iexact=value).count() > 0:
+        raise ValidationError("This username is already taken")
 
 
 class CustomUserManager(UserManager):
@@ -44,7 +51,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['email', 'first_name', 'last_name']
     objects = CustomUserManager()
 
-    username = models.CharField(max_length=30, unique=True)
+    username = models.CharField(max_length=30, unique=True, validators=[username_case_insensitive_unique])
     email = models.EmailField(max_length=255, unique=True)
     created = models.DateTimeField(auto_now_add=True)
     edited = models.DateTimeField(auto_now=True)
