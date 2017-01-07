@@ -104,4 +104,4 @@ var Konami = function (callback) {
 	return konami;
 };
 
-new Konami(function() { alert('You WIN!')});
+new Konami(function() { alert('You WIN! Your flag hidden in plain sight is "r8TCY_276J"')});
