@@ -13,7 +13,7 @@ from django.contrib.auth.models import AbstractBaseUser, UserManager, Permission
 
 
 def username_case_insensitive_unique(value):
-    if User.objects.filter(username__iexact=value).count() > 0:
+    if User.objects.filter(username__iexact=value).exclude(username=value).count() > 0:
         raise ValidationError("This username is already taken")
 
 
