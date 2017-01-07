@@ -136,7 +136,7 @@ var histchart = c3.generate({
                 {% for t in times %}
                 "{{t|date:"Y-m-d H:i"}}",
                 {% endfor %}
-                "{% now "Y-m-d H:i" %}"
+                "{{end|date:"Y-m-d H:i"}}"
             ],
             [
                 "{{user.team.name}}",
