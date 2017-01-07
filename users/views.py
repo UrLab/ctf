@@ -72,14 +72,14 @@ def show_team(request):
         score = sum(map(lambda x: x.challenge.points, resolutions))
         end = min(timezone.now(), phase.stop)
 
-        grid = [phase.start + i * timedelta(days=1) for i in range(-1, (end - phase.start).days + 1)]
+        grid = [phase.start + i * timedelta(days=1) for i in range(-1, (end - phase.start).days + 2)]
 
         def round_time(dt):
             return dt.replace(minute=0, second=0)
 
         N_TICKS = 15 # NOQA
         tick_interval = (end - phase.start) / N_TICKS
-        ticks = [round_time(phase.start + i * tick_interval) for i in range(N_TICKS + 1)]
+        ticks = [round_time(phase.start + i * tick_interval) for i in range(N_TICKS + 10)]
 
         ctx = {
             'phase': phase,
