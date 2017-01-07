@@ -90,9 +90,20 @@ body {
     border-color: #222;
 }
 
-#title #ulb-logo {
-    height: 3em;
-    margin-right: .5em;
+.top-container {
+   display: -webkit-flex;
+   display: flex;
+   -webkit-flex-direction: row /* works with row or column */
+   flex-direction: row;
+   -webkit-align-items: center;
+   align-items: center;
+   -webkit-justify-content: center;
+   justify-content: center;
+}
+
+#ulb-logo {
+    height: 20em;
+    margin-right: 2em;
 }
 
 #title {
@@ -195,3 +206,4 @@ body {
 .irc:hover {
     color: #ccc;
 }
+
