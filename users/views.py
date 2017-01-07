@@ -68,6 +68,7 @@ def show_team(request):
 
         history = list(accumulate(map(lambda x: x.challenge.points, resolutions)))
         times = map(lambda x: x.time, resolutions)
+        score = sum(map(lambda x:x.challenge.points, resolutions))
 
         ctx = {
             'phase': phase,
@@ -77,6 +78,7 @@ def show_team(request):
             'resolutions': resolutions,
             'history': history,
             'times': times,
+            'score': score,
         }
     else:
         ctx = {

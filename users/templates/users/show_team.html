@@ -24,7 +24,9 @@
         {% if not phase %}
         <p class="text-muted">There is no active challenges right now. Patience young padawan...</p>
         {% else %}
+        <h2>Score: {{score}} point{{score|pluralize}}</h2>
         <div id="res-per-cat"></div>
+        <h3>History</h3>
         <div id="hist-chart"></div>
         {% endif %}
     </div>
@@ -96,6 +98,7 @@
 new Clipboard('#team-url-btn');
 </script>
 
+{% if phase %}
 <script type="text/javascript">
 var catchart = c3.generate({
     bindto: "#res-per-cat",
@@ -142,8 +145,7 @@ var histchart = c3.generate({
                 {% for hist in history %}
                 {{hist}},
                 {% endfor %}
-                {{history|last}}
-
+                {{score}}
             ]
         ],
     },
@@ -157,9 +159,13 @@ var histchart = c3.generate({
         },
         y: {
             min: 0,
-            padding: 0
+            padding: {
+                top: 10,
+                bottom: 0
+            }
         }
     },
 });
 </script>
+{% endif %}
 {% endblock %}
