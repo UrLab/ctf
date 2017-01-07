@@ -79,6 +79,7 @@ def show_team(request):
 
         N_TICKS = 15 # NOQA
         tick_interval = (end - phase.start) / N_TICKS
+        tick_interval = timedelta(hours=tick_interval.total_seconds() // 3600)
         ticks = [round_time(phase.start + i * tick_interval) for i in range(N_TICKS + 10)]
 
         ctx = {
