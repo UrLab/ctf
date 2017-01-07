@@ -183,3 +183,15 @@ body {
 .c3-legend-item {
     font-size: 1.4em !important;
 }
+
+.irc {
+    background-color: black;
+    padding: 0.4em;
+    border-radius: 0.4em;
+    font-family: monospace;
+    color: white;
+}
+
+.irc:hover {
+    color: #ccc;
+}
