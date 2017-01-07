@@ -10,7 +10,12 @@
 {% regroup completed by category as categories %}
 
 <div class="page-header">
-    <h1>{{user.team.name}}</h1>
+    <h1>
+        {{user.team.name}}
+        {% if phase %}
+            <small>Score: {{score}} points</small>
+        {% endif %}
+    </h1>
 </div>
 
 <div class="row">
@@ -24,9 +29,8 @@
         {% if not phase %}
         <p class="text-muted">There is no active challenges right now. Patience young padawan...</p>
         {% else %}
-        <h2>Score: {{score}} point{{score|pluralize}}</h2>
         <div id="res-per-cat"></div>
-        <h3>History</h3>
+        <h3>Score over time for your team</h3>
         <div id="hist-chart"></div>
         {% endif %}
     </div>
@@ -111,8 +115,8 @@ var catchart = c3.generate({
         ],
         type : 'donut',
         colors: {
-            'Unsolved': '#cacaca'
-        }
+            'Unsolved': '#cacaca',
+        },
     },
     donut: {
         title: "Resolutions",
@@ -121,6 +125,9 @@ var catchart = c3.generate({
                 return d3.format()(value);
             }
         }
+    },
+    color: {
+        pattern: ['#ec971f', '#449d44', '#fcf8e3', '#d43f3a', '#ebccd1', '#66afe9', '#bce8f1', '#255625', '#398439', '#eea236', '#d4d4d4', '#204d74', '#46b8da', '#c4e3f3', '#c0a16b', '#d5d5d5', '#2b542c', '#c9e2b3', '#2e6da4', '#dff0d8', '#faebcc', '#5cb85c', '#d9edf7', '#d0e9c6', '#c7254e', '#a94442', '#5bc0de', '#ce8483', '#31b0d5', '#f0ad4e', '#122b40', '#d9534f', '#67b168', '#985f0d', '#afd9ee', '#f7e1b5', '#c9302c', '#f9f2f4', '#286090', '#66512c', '#a6e1ec', '#f2dede', '#8a6d3b', '#e4b9b9', '#d6e9c6', '#d58512', '#337ab7', '#4cae4c', '#faf2cc', '#c7ddef', '#269abc', '#ac2925', '#761c19']
     }
 });
 var histchart = c3.generate({
@@ -153,14 +160,19 @@ var histchart = c3.generate({
         x: {
             type: 'timeseries',
             tick: {
-                format: '%d/%m %Hh',
+                format: '%Hh',
                 values : [
                     {% for tick in ticks %}
                         "{{tick|date:"Y-m-d H:i"}}",
                     {% endfor %}
-                ]
+                ],
+                rotate: -45,
             },
-            padding: 0,
+            height: 50,
+            padding: {
+                left: 0,
+                right: 40000000,
+            },
         },
         y: {
             min: 0,
@@ -177,7 +189,23 @@ var histchart = c3.generate({
                     + x.getHours() + ":" + x.getMinutes());
             }
         }
-    }
+    },
+    point: {
+      r: 5
+    },
+    grid: {
+        x: {
+            lines: [
+            {% for g in grid %}
+                {value: "{{g|date:"Y-m-d H:i"}}", class: "c3-grid", text: "{{g|date:"d/m"}}", position: "start"},
+            {% endfor%}
+            ]
+        }
+    },
+    color: {
+        pattern: ['#ec971f', '#449d44', '#fcf8e3', '#d43f3a', '#ebccd1', '#66afe9', '#bce8f1', '#255625', '#398439', '#eea236', '#d4d4d4', '#204d74', '#46b8da', '#c4e3f3', '#c0a16b', '#d5d5d5', '#2b542c', '#c9e2b3', '#2e6da4', '#dff0d8', '#faebcc', '#5cb85c', '#d9edf7', '#d0e9c6', '#c7254e', '#a94442', '#5bc0de', '#ce8483', '#31b0d5', '#f0ad4e', '#122b40', '#d9534f', '#67b168', '#985f0d', '#afd9ee', '#f7e1b5', '#c9302c', '#f9f2f4', '#286090', '#66512c', '#a6e1ec', '#f2dede', '#8a6d3b', '#e4b9b9', '#d6e9c6', '#d58512', '#337ab7', '#4cae4c', '#faf2cc', '#c7ddef', '#269abc', '#ac2925', '#761c19']
+
+    },
 });
 </script>
 {% endif %}
