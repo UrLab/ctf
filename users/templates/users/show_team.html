@@ -153,9 +153,14 @@ var histchart = c3.generate({
         x: {
             type: 'timeseries',
             tick: {
-                format: '%d %H:%M'
+                format: '%d/%m %Hh',
+                values : [
+                    {% for tick in ticks %}
+                        "{{tick|date:"Y-m-d H:i"}}",
+                    {% endfor %}
+                ]
             },
-            padding: 0
+            padding: 0,
         },
         y: {
             min: 0,
@@ -165,6 +170,14 @@ var histchart = c3.generate({
             }
         }
     },
+    tooltip: {
+        format: {
+            title: function(x){
+                return (x.getDate() + "/" + x.getMonth() + " "
+                    + x.getHours() + ":" + x.getMinutes());
+            }
+        }
+    }
 });
 </script>
 {% endif %}

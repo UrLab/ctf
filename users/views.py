@@ -68,8 +68,15 @@ def show_team(request):
 
         history = list(accumulate(map(lambda x: x.challenge.points, resolutions)))
         times = map(lambda x: x.time, resolutions)
-        score = sum(map(lambda x:x.challenge.points, resolutions))
+        score = sum(map(lambda x: x.challenge.points, resolutions))
         end = min(timezone.now(), phase.stop)
+
+        def round_time(dt):
+            return dt.replace(minute=0, second=0)
+
+        N_TICKS = 7 # NOQA
+        tick_interval = (end - phase.start) / N_TICKS
+        ticks = [round_time(phase.start + i * tick_interval) for i in range(N_TICKS + 1)]
 
         ctx = {
             'phase': phase,
@@ -81,6 +88,7 @@ def show_team(request):
             'times': times,
             'score': score,
             'end': end,
+            'ticks': ticks,
         }
     else:
         ctx = {
