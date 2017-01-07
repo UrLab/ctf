@@ -22,7 +22,7 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
                     {% if user.team %}
-                        <li><a href="{% url 'team' %}">Team</a></li>
+                        <li><a href="{% url 'team' %}">Team ({{user.team}})</a></li>
                     {% else %}
                         <li><a href="{% url 'join_team' %}">
                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
