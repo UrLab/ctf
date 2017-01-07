@@ -17,6 +17,8 @@ from .forms import UserForm, CreateTeamForm
 from .models import User, Team
 from challenges.models import Challenge, Phase, Resolution
 
+from itertools import accumulate
+
 
 class RegistrationView(CreateView):
     form_class = UserForm
@@ -63,9 +65,12 @@ def show_team(request):
         phase = Phase.objects.filter(start__lte=timezone.now()).first()
 
     if phase:
-        resolutions = Resolution.objects.filter(challenge__phase=phase, team=request.user.team).order_by('-time').select_related('challenge')
+        resolutions = Resolution.objects.filter(challenge__phase=phase, team=request.user.team).order_by('time').select_related('challenge')
         completed = [r.challenge for r in resolutions]
         not_completed = Challenge.objects.exclude(id__in=[c.id for c in completed])
+
+        history = list(accumulate(map(lambda x: x.challenge.points, resolutions)))
+        times = map(lambda x: x.time, resolutions)
 
         ctx = {
             'phase': phase,
@@ -73,6 +78,8 @@ def show_team(request):
             'not_completed': not_completed,
             'total_challenges': len(completed) + len(not_completed),
             'resolutions': resolutions,
+            'history': history,
+            'times': times,
         }
     else:
         ctx = {
