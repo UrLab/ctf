@@ -72,7 +72,7 @@ def show_team(request):
         score = sum(map(lambda x: x.challenge.points, resolutions))
         end = min(timezone.now(), phase.stop)
 
-        grid = [phase.start + i * timedelta(days=1) for i in range(-1, (end - phase.start).days + 2)]
+        grid = [phase.start + i * timedelta(days=1) for i in range(-1, (end - phase.start).days + 1)]
 
         def round_time(dt):
             return dt.replace(minute=0, second=0)
