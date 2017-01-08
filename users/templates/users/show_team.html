@@ -104,6 +104,11 @@ new Clipboard('#team-url-btn');
 
 {% if phase %}
 <script type="text/javascript">
+function pad (str, max) {
+  str = str.toString();
+  return str.length < max ? pad("0" + str, max) : str;
+}
+
 var catchart = c3.generate({
     bindto: "#res-per-cat",
     data: {
@@ -185,8 +190,8 @@ var histchart = c3.generate({
     tooltip: {
         format: {
             title: function(x){
-                return (x.getDate() + "/" + x.getMonth() + " "
-                    + x.getHours() + ":" + x.getMinutes());
+                return (pad(x.getDate(), 2) + "/" + pad(x.getMonth()+1, 2) + " "
+                    + pad(x.getHours(),2) + ":" + pad(x.getMinutes(), 2));
             }
         }
     },
