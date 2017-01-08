@@ -16,6 +16,9 @@
 </div>
 
 
+{% if not phase %}
+<p class="text-muted">There is no active challenges right now. Patience young padawan...</p>
+{% else %}
 <div class="row">
     <div class="col-md-12">
         <div class="well phase-description">
@@ -71,4 +74,5 @@
         {% endfor %}
     </tbody>
 </table>
+{% endif %}
 {% endblock %}
