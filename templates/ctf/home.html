@@ -3,10 +3,14 @@
 
 {% block out_of_container %}
 <div class="full full-bombe">
-    <div>
-        <h1 id="title">
-            <img src="/static/ulb.jpg" id="ulb-logo" alt="ULB">Capture The Flag 2017
-        </h1>
+    <div class="top-container">
+        <img src="/static/ulb-glitch.gif" id="ulb-logo" alt="ULB">
+        <div>
+            <h1 id="title">
+                Capture The Flag 2017
+            </h1>
+            <h2>Computer security challenges for every student</h2>
+        </div>
     </div>
 </div>
 <div class="full full-glitch">
@@ -34,20 +38,40 @@
 
 <div class="full full-dc">
     <div>
-        <a href="https://urlab.be">
-            <img src="/static/urlab.png"/ class="full-logo">
-        </a>
-        <a href="http://cerkinfo.be">
-            <img src="/static/ci.png" class="full-logo">
-        </a>
-        <a href="http://ulb.ac.be">
-            <img src="/static/ulb.jpg" class="full-logo">
-        </a>
+        <div class="text-center">
+            <h2>
+                Join us on IRC :
+                <a class="irc" href="http://webchat.freenode.net/?nick=CTFuser.&channels=%23ctfulb&uio=MTY9dHJ1ZSY5PXRydWUmMTE9MjQ276">
+                    <i class="fa fa-terminal fa-inverse"></i>
+                    irc.freenode.org#ctfulb
+                </a>
+            </h2>
+            <h2>
+                We are also on
+                <a href="https://twitter.com/ctfulb">Twitter</a> and
+                <a href="https://facebook.com/ctfulb">Facebook</a>.
+            </h2>
+            <br><br><br>
+        </div>
+        <div>
+            <a href="https://urlab.be">
+                <img src="/static/urlab.png"/ class="full-logo">
+            </a>
+            <a href="http://cerkinfo.be">
+                <img src="/static/ci.png" class="full-logo">
+            </a>
+            <a href="http://ulb.ac.be">
+                <img src="/static/ulb.jpg" class="full-logo">
+            </a>
+        </div>
     </div>
 </div>
 
 {% endblock %}
 
 {% block content %}
-    Made with love by <a href="https://urlab.be">UrLab</a>, AGPL license. Source on <a href="https://github.com/UrLab/ctf">GitHub</a>.<br><br>
+    Made with love by <a href="https://urlab.be">UrLab</a>,
+    AGPL license. Source on <a href="https://github.com/UrLab/ctf">GitHub</a>.
+    Feel free to contact us at <a href="mailto:ctf@urlab.be">ctf@urlab.be</a>.
+    <br><br>
 {% endblock %}

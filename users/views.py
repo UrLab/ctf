@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from datetime import timedelta
 
 # Create your views here.
 from django.http import HttpResponseRedirect, HttpResponseForbidden
@@ -68,8 +69,18 @@ def show_team(request):
 
         history = list(accumulate(map(lambda x: x.challenge.points, resolutions)))
         times = map(lambda x: x.time, resolutions)
-        score = sum(map(lambda x:x.challenge.points, resolutions))
+        score = sum(map(lambda x: x.challenge.points, resolutions))
         end = min(timezone.now(), phase.stop)
+
+        grid = [phase.start + i * timedelta(days=1) for i in range(-1, (end - phase.start).days + 2)]
+
+        def round_time(dt):
+            return dt.replace(minute=0, second=0)
+
+        N_TICKS = 15 # NOQA
+        tick_interval = (end - phase.start) / N_TICKS
+        tick_interval = timedelta(hours=tick_interval.total_seconds() // 3600)
+        ticks = [round_time(phase.start + i * tick_interval) for i in range(N_TICKS + 10)]
 
         ctx = {
             'phase': phase,
@@ -81,6 +92,8 @@ def show_team(request):
             'times': times,
             'score': score,
             'end': end,
+            'ticks': ticks,
+            'grid': grid
         }
     else:
         ctx = {

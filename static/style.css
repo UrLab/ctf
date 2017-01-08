@@ -90,9 +90,20 @@ body {
     border-color: #222;
 }
 
-#title #ulb-logo {
-    height: 3em;
-    margin-right: .5em;
+.top-container {
+   display: -webkit-flex;
+   display: flex;
+   -webkit-flex-direction: row /* works with row or column */
+   flex-direction: row;
+   -webkit-align-items: center;
+   align-items: center;
+   -webkit-justify-content: center;
+   justify-content: center;
+}
+
+#ulb-logo {
+    height: 20em;
+    margin-right: 2em;
 }
 
 #title {
@@ -160,3 +171,39 @@ body {
 .phase-description p {
     margin-bottom: 0;
 }
+
+
+.c3-grid {
+    stroke-dasharray: 4,5;
+    stroke-width: 0.7;
+}
+
+.tick {
+    font-size:  1.4em;
+}
+
+.c3-chart-arcs-title {
+    font-size: 1.9em !important;
+
+}
+
+.c3 text {
+    font-family: 'Roboto', sans-serif;
+}
+
+.c3-legend-item {
+    font-size: 1.4em !important;
+}
+
+.irc {
+    background-color: black;
+    padding: 0.4em;
+    border-radius: 0.4em;
+    font-family: monospace;
+    color: white;
+}
+
+.irc:hover {
+    color: #ccc;
+}
+
