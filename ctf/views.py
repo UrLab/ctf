@@ -15,7 +15,7 @@ def home(request):
 def scoreboard(request):
     context = {}
 
-    teams = Team.objects.all().annotate(points=Coalesce(Sum("resolution__challenge__points"), 0)).annotate(last=Max("resolution__time")).order_by("-points", "-last").prefetch_related("members")
+    teams = Team.objects.all().annotate(points=Coalesce(Sum("resolution__challenge__points"), 0)).annotate(last=Max("resolution__time")).order_by("-points", "last").prefetch_related("members")
     context["teams"] = teams
 
     # TODO : refactor get phase in a fct
