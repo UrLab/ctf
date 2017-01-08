@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load humanize %}
+{% load markdown_deux_tags %}
+
+{%block extrahead %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+{% include "users/team_warning.html" %}
+
+<div class="page-header">
+    <h1>
+        Stats
+        {% if phase %}
+            <small>{{phase}}</small>
+        {% endif %}
+    </h1>
+</div>
+
+
+{% if not phase %}
+<p class="text-muted">There is no active challenges right now. Patience young padawan...</p>
+{% else %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="well phase-description">
+            {{phase.description|markdown}}
+        </div>
+    </div>
+</div>
+
+<div id="teams-graph"></div>
+{% endif %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
+{% if phase %}
+<script type="text/javascript">
+function pad (str, max) {
+  str = str.toString();
+  return str.length < max ? pad("0" + str, max) : str;
+}
+
+var histchart = c3.generate({
+    bindto: "#teams-graph",
+    data: {
+        xs: {
+            {% for team in teams %}
+            "{{team.0}}": "x{{team.0}}",
+            {% endfor %}
+        },
+        xFormat: '%Y-%m-%d %H:%M',
+        columns: [
+            {% for team in teams %}
+            [
+                "x{{team.0}}",
+                "{{phase.start|date:"Y-m-d H:i"}}",
+                {% for t in team.1 %}
+                "{{t|date:"Y-m-d H:i"}}",
+                {% endfor %}
+                "{{end|date:"Y-m-d H:i"}}"
+            ],
+            [
+                "{{team.0}}",
+                0,
+                {% for hist in team.2 %}
+                {{hist}},
+                {% endfor %}
+                {% if team.2 %}{{team.2|last}}{% else %}0{% endif %}
+            ],
+            {% endfor %}
+        ],
+    },
+    axis: {
+        x: {
+            type: 'timeseries',
+            tick: {
+                format: '%Hh',
+                values : [
+                    {% for tick in ticks %}
+                        "{{tick|date:"Y-m-d H:i"}}",
+                    {% endfor %}
+                ],
+                rotate: -45,
+            },
+            height: 50,
+            padding: {
+                left: 0,
+                right: 4000000,
+            },
+        },
+        y: {
+            min: 0,
+            padding: {
+                top: 10,
+                bottom: 0
+            }
+        }
+    },
+    tooltip: {
+        format: {
+            title: function(x){
+                return (pad(x.getDate(), 2) + "/" + pad(x.getMonth()+1, 2) + " "
+                    + pad(x.getHours(),2) + ":" + pad(x.getMinutes(), 2));
+            }
+        }
+    },
+    point: {
+      r: 5
+    },
+    grid: {
+        x: {
+            lines: [
+            {% for g in grid %}
+                {value: "{{g|date:"Y-m-d H:i"}}", class: "c3-grid", text: "{{g|date:"d/m"}}", position: "start"},
+            {% endfor%}
+            ]
+        }
+    },
+    color: {
+        pattern: ['#ac2925', '#269abc', '#c7ddef', '#761c19', '#faf2cc', '#4cae4c', '#337ab7', '#d58512', '#d6e9c6', '#e4b9b9', '#8a6d3b', '#f2dede', '#a6e1ec', '#66512c', '#286090', '#f9f2f4', '#c9302c', '#f7e1b5', '#afd9ee', '#985f0d', '#67b168', '#d9534f', '#122b40', '#f0ad4e', '#31b0d5', '#ce8483', '#5bc0de', '#a94442', '#c7254e', '#d0e9c6', '#d9edf7', '#5cb85c', '#faebcc', '#dff0d8', '#2e6da4', '#c9e2b3', '#2b542c', '#d5d5d5', '#c0a16b', '#c4e3f3', '#46b8da', '#204d74', '#d4d4d4', '#eea236', '#398439', '#255625', '#bce8f1', '#66afe9', '#ebccd1', '#d43f3a', '#fcf8e3', '#449d44', '#ec971f']
+
+    },
+});
+</script>
+{% endif %}
+{% endblock %}
