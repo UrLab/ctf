@@ -7,7 +7,7 @@ from django.utils import timezone
 from users.models import Team
 from challenges.models import Phase, Resolution
 
-from itertools import groupby, accumulate
+from itertools import groupby, accumulate, chain
 
 
 def home(request):
@@ -29,10 +29,14 @@ def scoreboard(request):
 
     return render(request, 'ctf/scoreboard.html', context)
 
+
 def team_stat(team):
     team, resolutions = team
     times = list(map(lambda x: x.time, resolutions))
+    times = list(chain(*zip(times, times)))[1:]
+
     history = list(accumulate(map(lambda x: x.challenge.points, resolutions)))
+    history = list(chain(*zip(history, history)))[:-1]
     return (team.name, times, history)
 
 
@@ -44,8 +48,8 @@ def stats(request):
 
     if phase:
         resolutions = Resolution.objects.filter(challenge__phase=phase).order_by('team_id', 'time').select_related('challenge').select_related('team')
-        teams = map(lambda x: (x[0], list(x[1])), groupby(resolutions, lambda x:x.team))
-        teams = map(team_stat, teams)
+        teams = map(lambda x: (x[0], list(x[1])), groupby(resolutions, lambda x: x.team))
+        teams = list(map(team_stat, teams))
 
         end = min(timezone.now(), phase.stop)
 
