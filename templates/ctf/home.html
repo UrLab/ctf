@@ -41,7 +41,7 @@
         <div class="text-center">
             <h2>
                 Join us on IRC :
-                <a class="irc" href="http://webchat.freenode.net/?nick=CTFuser.&channels=%23ctfulb&uio=MTY9dHJ1ZSY5PXRydWUmMTE9MjQ276">
+                <a class="irc" href="http://webchat.freenode.net/?nick={% if request.user %}{{request.user.username}}{% else %}CTFuser{% endif %}.&channels=%23ctfulb&uio=MTY9dHJ1ZSY5PXRydWUmMTE9MjQ276">
                     <i class="fa fa-terminal fa-inverse"></i>
                     irc.freenode.org#ctfulb
                 </a>
