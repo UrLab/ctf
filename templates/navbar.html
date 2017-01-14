@@ -22,7 +22,7 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a  href="http://webchat.freenode.net/?nick={% if request.user %}{{request.user.username}}_{% else %}CTFuser{% endif %}.&channels=%23ctfulb&uio=MTY9dHJ1ZSY5PXRydWUmMTE9MjQ276">
+                    <a  href="http://webchat.freenode.net/?nick={% if request.user.username %}{{request.user.username}}_{% else %}CTFuser{% endif %}.&channels=%23ctfulb&uio=MTY9dHJ1ZSY5PXRydWUmMTE9MjQ276">
                         IRC
                         <i class="fa fa-terminal"></i>
                     </a>
