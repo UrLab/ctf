@@ -132,6 +132,11 @@ body {
     margin: 2em;
 }
 
+.half-logo {
+    height: 20vh;
+    margin: 2em;
+}
+
 #b-messages {
     min-height: 0;
 }
