@@ -35,7 +35,7 @@ class DetailView(generic.DetailView):
 
     def get(self, request, *args, **kwargs):
         original = super(DetailView, self).get(request, *args, **kwargs)
-        if self.object.phase.start > timezone.now():
+        if not self.object.phase or self.object.phase.start > timezone.now():
             return HttpResponseForbidden("This challenge is not yet available.")
         return original
 
@@ -59,7 +59,7 @@ def flag(request, pk):
     if attempt != challenge.flag:
         messages.add_message(request, messages.ERROR, "You had the wrong flag, sorry...")
     else:
-        if challenge.phase.start > timezone.now() or challenge.phase.stop < timezone.now():
+        if not challenge.phase.start or challenge.phase.start > timezone.now() or challenge.phase.stop < timezone.now():
             return HttpResponseForbidden("This challenge is not active at the moment")
         team = request.user.team
         teams = map(lambda x: x.team, challenge.resolution_set.all())
