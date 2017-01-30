@@ -65,7 +65,7 @@ def show_team(request):
     if phase:
         resolutions = Resolution.objects.filter(challenge__phase=phase, team=request.user.team).order_by('time').select_related('challenge')
         completed = [r.challenge for r in resolutions]
-        not_completed = Challenge.objects.exclude(id__in=[c.id for c in completed])
+        not_completed = Challenge.objects.exclude(id__in=[c.id for c in completed]).filter(phase=phase)
 
         history = list(accumulate(map(lambda x: x.challenge.points, resolutions)))
         times = map(lambda x: x.time, resolutions)
