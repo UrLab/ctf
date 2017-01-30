@@ -1,4 +1,5 @@
 from django.db import models
+import os
 
 
 class Category(models.Model):
@@ -26,6 +27,10 @@ class Challenge(models.Model):
     @property
     def visible_hint_set(self):
         return self.hint_set.filter(visible=True)
+
+    @property
+    def attachment_name(self):
+        return os.path.basename(self.attachment.name)
 
 
 class Hint(models.Model):

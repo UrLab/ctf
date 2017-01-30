@@ -141,6 +141,8 @@ LOGIN_REDIRECT_URL = 'home'
 
 ROOT_URL = "http://ctf.urlab.be"  # DO NOT APPEND A SLASH (but you may append a port)
 
+MEDIA_URL = "/media/"
+
 try:
     from .local_settings import * # NOQA
 except ImportError:
