@@ -58,17 +58,15 @@ def flag(request, pk):
     challenge = get_object_or_404(Challenge, pk=pk)
     attempt = request.POST['flag'].strip()
 
-    if challenge.phase.start > timezone.now() or challenge.phase.stop < timezone.now():
+    team = request.user.team
+    if not team.is_orga and (not challenge.phase or challenge.phase.start > timezone.now() or challenge.phase.stop < timezone.now()):
         return HttpResponseForbidden("This challenge is not active at the moment")
 
     if attempt != challenge.flag:
         messages.add_message(request, messages.ERROR, "You had the wrong flag, sorry...")
-        if attempt != "":
+        if attempt != "" and not team.is_orga:
             Attempt.objects.create(challenge=challenge, user=request.user, attempt=attempt)
     else:
-        team = request.user.team
-        if not team.is_orga and (not challenge.phase.start or challenge.phase.start > timezone.now() or challenge.phase.stop < timezone.now()):
-            return HttpResponseForbidden("This challenge is not active at the moment")
         teams = map(lambda x: x.team, challenge.resolution_set.all())
         if team.is_orga:
             messages.add_message(request, messages.INFO, "Congrats, you flagged this challenge! But, because you're in an organisation team, you can't get point from it.")
