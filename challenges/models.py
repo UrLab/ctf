@@ -18,7 +18,7 @@ class Challenge(models.Model):
     category = models.ForeignKey('Category')
     points = models.PositiveSmallIntegerField()
     flag = models.CharField(max_length=255)
-    phase = models.ForeignKey('Phase')
+    phase = models.ForeignKey('Phase', blank=True, null=True)
 
     def __str__(self):
         return self.title
