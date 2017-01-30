@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Challenge, Hint, Resolution, Phase
+from .models import Category, Challenge, Hint, Resolution, Phase, Attempt
 
 
 @admin.register(Category)
@@ -30,3 +30,9 @@ class ResolutionAdmin(admin.ModelAdmin):
 class PhaseAdmin(admin.ModelAdmin):
     list_display = ('name', 'start', 'stop', 'slug')
     prepopulated_fields = {'slug': ('name',), }
+
+
+@admin.register(Attempt)
+class AttemptAdmin(admin.ModelAdmin):
+    list_display = ('attempt', 'user', 'challenge', 'time')
+    list_filter = ('challenge', )

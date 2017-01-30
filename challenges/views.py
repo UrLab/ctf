@@ -10,7 +10,7 @@ from django.utils import timezone
 
 from ratelimit.decorators import ratelimit
 
-from .models import Challenge, Category, Resolution, Phase
+from .models import Challenge, Category, Resolution, Phase, Attempt
 from users.decorators import team_required
 
 
@@ -57,8 +57,14 @@ def flag(request, pk):
         return HttpResponseBadRequest("Missing parameter flag.")
     challenge = get_object_or_404(Challenge, pk=pk)
     attempt = request.POST['flag'].strip()
+
+    if challenge.phase.start > timezone.now() or challenge.phase.stop < timezone.now():
+        return HttpResponseForbidden("This challenge is not active at the moment")
+
     if attempt != challenge.flag:
         messages.add_message(request, messages.ERROR, "You had the wrong flag, sorry...")
+        if attempt != "":
+            Attempt.objects.create(challenge=challenge, user=request.user, attempt=attempt)
     else:
         team = request.user.team
         if not team.is_orga and (not challenge.phase.start or challenge.phase.start > timezone.now() or challenge.phase.stop < timezone.now()):

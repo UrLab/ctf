@@ -60,3 +60,10 @@ class Phase(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Attempt(models.Model):
+    challenge = models.ForeignKey('challenge')
+    user = models.ForeignKey('users.User')
+    attempt = models.CharField(max_length=500)
+    time = models.DateTimeField(auto_now_add=True)
