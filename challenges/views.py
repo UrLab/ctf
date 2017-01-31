@@ -20,7 +20,7 @@ def list_challenges(request):
 
     categories = Category.objects.all()
     for category in categories:
-        category.this_phase_challenges = category.challenge_set.filter(phase=phase)
+        category.this_phase_challenges = category.challenge_set.filter(phase=phase).order_by("points", "id")
 
     ctx = {
         'phase': phase,
