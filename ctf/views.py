@@ -15,6 +15,11 @@ def home(request):
     return render(request, 'ctf/home.html', context)
 
 
+def rules(request):
+    context = {}
+    return render(request, 'ctf/rules.html', context)
+
+
 def scoreboard(request):
     context = {}
 
@@ -28,6 +33,7 @@ def scoreboard(request):
     context["phase"] = phase
 
     return render(request, 'ctf/scoreboard.html', context)
+
 
 def team_stat(team):
     team, resolutions = team

@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^challenges/', include('challenges.urls')),
     url(r'scoreboard/', views.scoreboard, name="scoreboard"),
     url(r'stats/', views.stats, name="stats"),
+    url(r'rules/', views.rules, name="rules"),
     url(r'^$', views.home, name="home"),
     url('^accounts/', include('django.contrib.auth.urls')),
     url('^accounts/', include('users.urls')),
