@@ -11,6 +11,8 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth import login
 from django.db.models import Count
 from django.utils import timezone
+from django.conf import settings
+
 
 from users.decorators import team_required
 
@@ -27,10 +29,18 @@ class RegistrationView(CreateView):
     template_name_suffix = '_create_form'
     success_url = reverse_lazy('post_register')
 
+    def get_template_names(self):
+        if not settings.ALLOW_REGISTER:
+            return "users/no_register.html"
+        return super().get_template_names()
+
     def form_valid(self, form):
-        user = form.save()
-        login(self.request, user)
-        return redirect(self.success_url)
+        if settings.ALLOW_REGISTER:
+            user = form.save()
+            login(self.request, user)
+            return redirect(self.success_url)
+        else:
+            return HttpResponseForbidden("Registrations are closed.")
 
 
 @login_required

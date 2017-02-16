@@ -143,6 +143,8 @@ ROOT_URL = "http://ctf.urlab.be"  # DO NOT APPEND A SLASH (but you may append a 
 
 MEDIA_URL = "/media/"
 
+ALLOW_REGISTER = True
+
 try:
     from .local_settings import * # NOQA
 except ImportError:
