@@ -20,6 +20,7 @@ class Challenge(models.Model):
     points = models.PositiveSmallIntegerField()
     flag = models.CharField(max_length=255)
     phase = models.ForeignKey('Phase', blank=True, null=True)
+    sponsor = models.ForeignKey('Sponsor', blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -86,3 +87,14 @@ class Attempt(models.Model):
 
     def distance(self):
         return self._hamdist(self.attempt.lower().strip(), self.challenge.flag.lower().strip())
+
+
+class Sponsor(models.Model):
+    name = models.CharField(max_length=500)
+    text = models.TextField(default="")
+
+    mini_logo = models.FileField(upload_to="logos/", blank=True, null=True)
+    logo = models.FileField(upload_to="logos/", blank=True, null=True)
+
+    def __str__(self):
+        return self.name

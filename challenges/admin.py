@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Challenge, Hint, Resolution, Phase, Attempt
+from .models import Category, Challenge, Hint, Resolution, Phase, Attempt, Sponsor
 
 
 @admin.register(Category)
@@ -10,8 +10,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Challenge)
 class ChallengeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'points', 'category', 'attachment', 'phase')
-    list_filter = ('category', 'points', 'phase')
+    list_display = ('id', 'title', 'points', 'category', 'attachment', 'phase', 'sponsor')
+    list_filter = ('category', 'points', 'phase', 'sponsor')
 
 
 @admin.register(Hint)
@@ -39,3 +39,8 @@ class AttemptAdmin(admin.ModelAdmin):
 
     def team(self, attempt):
         return attempt.user.team
+
+
+@admin.register(Sponsor)
+class SponsorAdmin(admin.ModelAdmin):
+    pass

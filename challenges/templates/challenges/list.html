@@ -39,7 +39,12 @@
                         {% teams challenge.resolution_set.all as ts%}
                         <tr class={%if user.team in ts %}"success"{% else %}""{% endif %}>
                             <td>{{challenge.points}}</td>
-                            <td><a href={% url 'detail' challenge.id %}>{{challenge.title}}</a></td>
+                            <td>
+                                {% if challenge.sponsor.mini_logo %}
+                                    <img class="mini-logo" src="{{challenge.sponsor.mini_logo.url}}" alt="{{challenge.sponsor.name}}">
+                                {% endif %}
+                                <a href={% url 'detail' challenge.id %}>{{challenge.title}}</a>
+                            </td>
                             <td>
                                 {{challenge.public_resolution_set.count}}
                             </td>

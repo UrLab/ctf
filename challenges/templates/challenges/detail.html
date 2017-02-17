@@ -11,33 +11,47 @@
 </div>
 
 <div class="row">
+    {% if challenge.sponsor %}
+    <div class="col-md-6">
+    {% else %}
     <div class="col-md-12">
+    {% endif %}
         {{challenge.description|safe|markdown|safe}}
+        <br/>
+        {% if challenge.attachment %}
+            <strong>Attachment</strong>: <a href={{challenge.attachment.url}} target="_blank">Download {{challenge.attachment_name}}</a><br><br><br>
+        </div>
+    {% endif %}
     </div>
+    {% if challenge.sponsor %}
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">This challenge was made by our sponsor: <strong>{{challenge.sponsor.name}}</strong></div>
+                <p style="padding: 1em;">
+                    {{challenge.sponsor.text}}
+                </p>
+                <p class="text-center">
+                    <img class="sponsor-big-logo" src="{{challenge.sponsor.logo.url}}" alt="{{challenge.sponsor.name}} logo">
+                </p>
+            </div>
+        </div>
+    {% endif %}
 </div>
-<br/>
 
-
-{% if challenge.attachment %}
 <div class="row">
     <div class="col-md-12">
-        <strong>Attachment</strong>: <a href={{challenge.attachment.url}} target="_blank">Download {{challenge.attachment_name}}</a><br><br><br>
+        <form action="{% url 'flag' challenge.id %}" method="POST" class="form-horizontal col-md-12">
+            {% csrf_token %}
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1"><i class="fa fa-flag"></i></span>
+                <label for="flag" class="sr-only"></label>
+                <input type="text" id="flag" name="flag" autocomplete="off" class="form-control" placeholder="Flag"/>
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit">Go!</button>
+                </span>
+            </div>
+        </form>
     </div>
-</div>
-{% endif %}
-
-<div class="row">
-    <form action="{% url 'flag' challenge.id %}" method="POST" class="form-horizontal col-md-12">
-        {% csrf_token %}
-        <div class="input-group">
-            <span class="input-group-addon" id="basic-addon1"><i class="fa fa-flag"></i></span>
-            <label for="flag" class="sr-only"></label>
-            <input type="text" id="flag" name="flag" autocomplete="off" class="form-control" placeholder="Flag"/>
-            <span class="input-group-btn">
-                <button class="btn btn-primary" type="submit">Go!</button>
-            </span>
-        </div>
-    </form>
 </div>
 <br/>
 <br/>
