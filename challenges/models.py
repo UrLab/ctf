@@ -76,3 +76,13 @@ class Attempt(models.Model):
     user = models.ForeignKey('users.User')
     attempt = models.CharField(max_length=500)
     time = models.DateTimeField(auto_now_add=True)
+
+    def _hamdist(self, str1, str2):
+        diffs = 0
+        for ch1, ch2 in zip(str1, str2):
+                if ch1 != ch2:
+                    diffs += 1
+        return diffs
+
+    def distance(self):
+        return self._hamdist(self.attempt.lower().strip(), self.challenge.flag.lower().strip())

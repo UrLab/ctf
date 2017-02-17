@@ -34,5 +34,8 @@ class PhaseAdmin(admin.ModelAdmin):
 
 @admin.register(Attempt)
 class AttemptAdmin(admin.ModelAdmin):
-    list_display = ('attempt', 'user', 'challenge', 'time')
+    list_display = ('attempt', 'distance', 'user', 'team', 'challenge', 'time',)
     list_filter = ('challenge', )
+
+    def team(self, attempt):
+        return attempt.user.team
