@@ -105,6 +105,10 @@ class Team(models.Model):
             return None
 
     @property
+    def size(self):
+        return self.members.count()
+
+    @property
     def affiliations(self):
         return set([m.affiliation for m in self.members.all()])
 

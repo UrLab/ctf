@@ -12,7 +12,10 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'hidden', 'is_orga', 'score', 'size', 'pretty_affiliations')
+
+    def pretty_affiliations(self, team):
+        return ', '.join([str(x) for x in team.affiliations])
 
 
 @admin.register(Affiliation)
