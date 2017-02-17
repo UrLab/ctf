@@ -23,14 +23,15 @@ def rules(request):
 def scoreboard(request):
     context = {}
 
-    teams = Team.objects.filter(hidden=False).annotate(points=Coalesce(Sum("resolution__challenge__points"), 0)).annotate(last=Max("resolution__time")).order_by("-points", "last").prefetch_related("members")
-    context["teams"] = teams
-
     # TODO : refactor get phase in a fct
     phase = Phase.objects.filter(start__lte=timezone.now(), stop__gte=timezone.now()).first()
     if not phase:
         phase = Phase.objects.filter(start__lte=timezone.now()).first()
     context["phase"] = phase
+
+    teams = Team.objects.filter(hidden=False).filter(resolution__challenge__phase=phase).annotate(points=Coalesce(Sum("resolution__challenge__points"), 0)).annotate(last=Max("resolution__time")).order_by("-points", "last").prefetch_related("members")
+    context["teams"] = teams
+
 
     return render(request, 'ctf/scoreboard.html', context)
 
