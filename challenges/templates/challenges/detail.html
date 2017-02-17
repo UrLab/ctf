@@ -21,7 +21,7 @@
 {% if challenge.attachment %}
 <div class="row">
     <div class="col-md-12">
-        File: <a href={{challenge.attachment.url}} target="_blank">{{challenge.attachment_name}}</a>
+        <strong>Attachment</strong>: <a href={{challenge.attachment.url}} target="_blank">Download {{challenge.attachment_name}}</a><br>
     </div>
 </div>
 {% endif %}
