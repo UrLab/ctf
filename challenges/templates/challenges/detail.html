@@ -57,12 +57,12 @@
     </div>
     {% endif %}
 
-    {% if challenge.resolution_set.all %}
+    {% if resolutions %}
     <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">Teams that flagged this challenge</div>
             <ul class="list-group">
-                {% for resolution in challenge.resolution_set.all %}
+                {% for resolution in resolutions %}
                 <li class="list-group-item">{{resolution.team.name}}</li>
                 {% endfor %}
             </ul>

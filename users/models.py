@@ -83,6 +83,7 @@ class Team(models.Model):
     name = models.CharField(max_length=30, unique=True)
     secret_key = models.CharField(max_length=255, null=True, blank=True)
     is_orga = models.BooleanField(default=False)
+    hidden = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -102,6 +103,10 @@ class Team(models.Model):
             return resolutions[0].time
         else:
             return None
+
+    @property
+    def size(self):
+        return self.members.count()
 
     @property
     def affiliations(self):

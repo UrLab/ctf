@@ -1,0 +1,8 @@
+
+{% if request.user.team and request.user.team.hidden %}
+    <div class="alert alert-warning" role="alert">
+        <strong>Your team is hidden.</strong> It means that it won't show on the scoreboard.<br>
+        This is because your team is not eligible (the most probable reason is that you are not a student of ULB/VUB).<br>
+        If you think it's an error, please contact us at <a href="mailto:ctf@urlab.be">ctf@urlab.be</a>.
+    </div>
+{% endif %}

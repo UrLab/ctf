@@ -36,6 +36,11 @@ class DetailView(generic.DetailView):
     model = Challenge
     template_name = 'challenges/detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['resolutions'] = self.object.resolution_set.filter(team__hidden=False)
+        return context
+
     def get(self, request, *args, **kwargs):
         original = super(DetailView, self).get(request, *args, **kwargs)
         team = request.user.team
