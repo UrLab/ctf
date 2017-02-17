@@ -3,6 +3,9 @@
 
 {% block content %}
 
+{% include "users/team_warning.html" %}
+
+
 <div class="page-header">
     <h1>
         Welcome on our CTF platform! <a href="{% url 'challenge_list'%}" class="btn btn-default">Go to the challenges!</a>

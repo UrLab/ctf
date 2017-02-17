@@ -9,6 +9,9 @@
 {% block content %}
 {% regroup completed by category as categories %}
 
+{% include "users/hidden_team_warning.html" %}
+
+
 <div class="page-header">
     <h1>
         {{user.team.name}}

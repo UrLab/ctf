@@ -41,7 +41,7 @@
                             <td>{{challenge.points}}</td>
                             <td><a href={% url 'detail' challenge.id %}>{{challenge.title}}</a></td>
                             <td>
-                                {{challenge.resolution_set.count}}
+                                {{challenge.public_resolution_set.count}}
                             </td>
                         </tr>
                     {% empty %}

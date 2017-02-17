@@ -25,6 +25,10 @@ class Challenge(models.Model):
         return self.title
 
     @property
+    def public_resolution_set(self):
+        return self.resolution_set.filter(team__hidden=False)
+
+    @property
     def visible_hint_set(self):
         return self.hint_set.filter(visible=True)
 

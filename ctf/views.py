@@ -23,7 +23,7 @@ def rules(request):
 def scoreboard(request):
     context = {}
 
-    teams = Team.objects.all().annotate(points=Coalesce(Sum("resolution__challenge__points"), 0)).annotate(last=Max("resolution__time")).order_by("-points", "last").prefetch_related("members")
+    teams = Team.objects.filter(hidden=False).annotate(points=Coalesce(Sum("resolution__challenge__points"), 0)).annotate(last=Max("resolution__time")).order_by("-points", "last").prefetch_related("members")
     context["teams"] = teams
 
     # TODO : refactor get phase in a fct
@@ -49,7 +49,7 @@ def stats(request):
         phase = Phase.objects.filter(start__lte=timezone.now()).first()
 
     if phase:
-        resolutions = Resolution.objects.filter(challenge__phase=phase).order_by('team_id', 'time').select_related('challenge').select_related('team')
+        resolutions = Resolution.objects.filter(challenge__phase=phase, team__hidden=False).order_by('team_id', 'time').select_related('challenge').select_related('team')
         teams = map(lambda x: (x[0], list(x[1])), groupby(resolutions, lambda x:x.team))
         teams = map(team_stat, teams)
 
