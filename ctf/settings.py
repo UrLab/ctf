@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'markdown_deux',
     'debug_toolbar',
+    'ctf',
 
     'raven.contrib.django.raven_compat',
 ]
@@ -59,6 +60,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'ctf.middleware.LogUserDetailsMiddleware',
 ]
 
 ROOT_URLCONF = 'ctf.urls'
