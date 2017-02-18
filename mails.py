@@ -5,28 +5,29 @@ from django.core.mail import EmailMultiAlternatives
 from users.models import User
 
 
-subject = 'CTF ULB : [important] non-academic email'
-txt = """
-Hello fellow hackers!
+subject = 'CTF ULB'
+txt = """Good evening fellow hackers,
 
-We see that you registered on https://ctf.ulb.ac.be with a non-academic email.
-As we said in the rules, the event is only accessible to students of the ULB (and VUB) and this is for 2 main reasons :
+We hope that the CTF is going well for everyone :)
+Some of you have already solved 6 different challenges but you have at least 9 more to go!
 
- - We want to leave a chance to everybody to compete and if we let compete professionals, young students don't stand a chance
- - We do not have enough resources to organize a huge challenge beyond ULB walls
+Congratz to "Nova-FFT" who is leading the race with 770 points :)
 
-Thus we would like to verify that you are indeed a student.
-Could you confirm it by replying with your academic address, real first name and last name ?
-(And if possible your proof token that is available on the bottom right corner at https://ctf.ulb.ac.be/accounts/team)
+We are regularly releasing news/corrections/hints on Twitter (https://twitter.com/ctfulb)
+and IRC, #ctfulb on freenode (use your favorite client or the web interface in the menu on the website).
 
-Failing to do so will result in your account being
+We might also release more challenges during the qualifications if you solve the current ones too quickly ^^
+
+Have a good (not too long) night :)
 The CTF Team
+
+PS : the dictionary should only be used for offline attacks ;)
 """
 fro = 'ctf@urlab.be'
 
 import re
-DOMAINS = ["@vub.ac.be", "@vub.be", "@ulb.ac.be"]
-recipients = [u.email for u in User.objects.all() if re.search("@[\w.]+", u.email).group() not in DOMAINS]
+# DOMAINS = ["@vub.ac.be", "@vub.be", "@ulb.ac.be"]
+recipients = [u.email for u in User.objects.all()]
 
 message = EmailMultiAlternatives(
     subject=subject,
