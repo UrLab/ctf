@@ -16,7 +16,7 @@
     {% else %}
     <div class="col-md-12">
     {% endif %}
-        {{challenge.description|safe|markdown|safe}}
+        {{challenge.description|safe|markdown}}
         <br/>
         {% if challenge.attachment %}
             <strong>Attachment</strong>: <a href={{challenge.attachment.url}} target="_blank">Download {{challenge.attachment_name}}</a><br><br><br>
@@ -28,7 +28,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">This challenge was made by our sponsor: <strong>{{challenge.sponsor.name}}</strong></div>
                 <p style="padding: 1em;">
-                    {{challenge.sponsor.text}}
+                {{challenge.sponsor.text|markdown}}
                 </p>
                 <p class="text-center">
                     <img class="sponsor-big-logo" src="{{challenge.sponsor.logo.url}}" alt="{{challenge.sponsor.name}} logo">
