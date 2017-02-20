@@ -44,7 +44,7 @@ class DetailView(generic.DetailView):
     def get(self, request, *args, **kwargs):
         original = super(DetailView, self).get(request, *args, **kwargs)
         team = request.user.team
-        if not (team and team.is_orga) and (not self.object.phase or self.object.phase.start > timezone.now()):
+        if not (team and team.is_orga) and (not self.object.phase or self.object.phase.start > timezone.now() or self.object.phase.stop < timezone.now()):
             return HttpResponseForbidden("This challenge is not yet available.")
         return original
 

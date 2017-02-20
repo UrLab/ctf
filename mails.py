@@ -5,23 +5,19 @@ from django.core.mail import EmailMultiAlternatives
 from users.models import User
 
 
-subject = 'CTF ULB'
-txt = """Good evening fellow hackers,
+subject = 'CTF ULB: New challenges'
+txt = """Good morning!
 
-We hope that the CTF is going well for everyone :)
-Some of you have already solved 6 different challenges but you have at least 9 more to go!
+The night has been rough and the competition is strong!
+If you are stuck on some challenges, we have some good news for you, we just released a bunch of new challenges :)
 
-Congratz to "Nova-FFT" who is leading the race with 770 points :)
+Two of those challenges have been written by EY, our sponsor.
+We would like to thank them a lot for their help and for the prizes they are going to give to the best of you.
 
-We are regularly releasing news/corrections/hints on Twitter (https://twitter.com/ctfulb)
-and IRC, #ctfulb on freenode (use your favorite client or the web interface in the menu on the website).
+With love,
+The CTF team
 
-We might also release more challenges during the qualifications if you solve the current ones too quickly ^^
-
-Have a good (not too long) night :)
-The CTF Team
-
-PS : the dictionary should only be used for offline attacks ;)
+PS : don't try "FLAGFLAGFLAG", it's only a placeholder, not a real flag ^^
 """
 fro = 'ctf@urlab.be'
 
