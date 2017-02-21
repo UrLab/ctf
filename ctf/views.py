@@ -26,7 +26,7 @@ def scoreboard(request):
     # TODO : refactor get phase in a fct
     phase = Phase.objects.filter(start__lte=timezone.now(), stop__gte=timezone.now()).first()
     if not phase:
-        phase = Phase.objects.filter(start__lte=timezone.now()).last()
+        phase = Phase.objects.filter(start__lte=timezone.now()).order_by("start").last()
     context["phase"] = phase
 
     teams = Team.objects.filter(hidden=False).filter(resolution__challenge__phase=phase).annotate(points=Coalesce(Sum("resolution__challenge__points"), 0)).annotate(last=Max("resolution__time")).order_by("-points", "last").prefetch_related("members")
@@ -47,7 +47,7 @@ def stats(request):
     # TODO : refactor get phase in a fct
     phase = Phase.objects.filter(start__lte=timezone.now(), stop__gte=timezone.now()).first()
     if not phase:
-        phase = Phase.objects.filter(start__lte=timezone.now()).first()
+        phase = Phase.objects.filter(start__lte=timezone.now()).order_by("start").last()
 
     if phase:
         resolutions = Resolution.objects.filter(challenge__phase=phase, team__hidden=False).order_by('team_id', 'time').select_related('challenge').select_related('team')
