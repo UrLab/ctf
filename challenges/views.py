@@ -50,7 +50,7 @@ class DetailView(generic.DetailView):
         if not team.can_participate:
             return HttpResponseForbidden("You can't participate for now.")
 
-        if not (team and team.is_orga) and (not self.object.phase or self.object.phase.start > timezone.now()):
+        if not (team and team.is_orga) and (not self.object.phase or self.object.phase.start > timezone.now() or self.object.phase.stop < timezone.now()):
             return HttpResponseForbidden("This challenge is not yet available.")
         return original
 

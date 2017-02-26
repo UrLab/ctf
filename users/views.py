@@ -70,7 +70,7 @@ def show_team(request):
     # TODO : refactor get phase in a fct
     phase = Phase.objects.filter(start__lte=timezone.now(), stop__gte=timezone.now()).first()
     if not phase:
-        phase = Phase.objects.filter(start__lte=timezone.now()).first()
+        phase = Phase.objects.filter(start__lte=timezone.now()).order_by("start").last()
 
     if phase:
         resolutions = Resolution.objects.filter(challenge__phase=phase, team=request.user.team).order_by('time').select_related('challenge')
