@@ -44,6 +44,12 @@ class DetailView(generic.DetailView):
     def get(self, request, *args, **kwargs):
         original = super(DetailView, self).get(request, *args, **kwargs)
         team = request.user.team
+        if not team:
+            return HttpResponseForbidden("You don't have a team.")
+
+        if not team.can_participate:
+            return HttpResponseForbidden("You can't participate for now.")
+
         if not (team and team.is_orga) and (not self.object.phase or self.object.phase.start > timezone.now() or self.object.phase.stop < timezone.now()):
             return HttpResponseForbidden("This challenge is not yet available.")
         return original
@@ -67,6 +73,8 @@ def flag(request, pk):
     attempt = request.POST['flag'].strip()
 
     team = request.user.team
+    if not team.can_participate:
+        return HttpResponseForbidden("You can't participate for now.")
     if not team.is_orga and (not challenge.phase or challenge.phase.start > timezone.now() or challenge.phase.stop < timezone.now()):
         return HttpResponseForbidden("This challenge is not active at the moment")
 

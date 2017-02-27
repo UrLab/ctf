@@ -84,6 +84,7 @@ class Team(models.Model):
     secret_key = models.CharField(max_length=255, null=True, blank=True)
     is_orga = models.BooleanField(default=False)
     hidden = models.BooleanField(default=False)
+    can_participate = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
