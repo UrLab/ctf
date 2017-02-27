@@ -18,7 +18,7 @@ class Challenge(models.Model):
     attachment = models.FileField(upload_to="attachments/", blank=True, null=True)
     category = models.ForeignKey('Category')
     points = models.PositiveSmallIntegerField()
-    flag = models.CharField(max_length=255)
+    flag = models.CharField(max_length=5000)
     phase = models.ForeignKey('Phase', blank=True, null=True)
     sponsor = models.ForeignKey('Sponsor', blank=True, null=True)
 
@@ -75,7 +75,7 @@ class Phase(models.Model):
 class Attempt(models.Model):
     challenge = models.ForeignKey('challenge')
     user = models.ForeignKey('users.User')
-    attempt = models.CharField(max_length=500)
+    attempt = models.CharField(max_length=5000)
     time = models.DateTimeField(auto_now_add=True)
 
     def _hamdist(self, str1, str2):
