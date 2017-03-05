@@ -47,10 +47,10 @@ class DetailView(generic.DetailView):
         if not team:
             return HttpResponseForbidden("You don't have a team.")
 
-        if not team.can_participate:
-            return HttpResponseForbidden("You can't participate for now.")
+        # if not team.can_participate:
+        #     return HttpResponseForbidden("You can't participate for now.")
 
-        if not (team and team.is_orga) and (not self.object.phase or self.object.phase.start > timezone.now() or self.object.phase.stop < timezone.now()):
+        if not (team and team.is_orga) and (not self.object.phase or self.object.phase.start > timezone.now()):
             return HttpResponseForbidden("This challenge is not yet available.")
         return original
 
@@ -73,9 +73,10 @@ def flag(request, pk):
     attempt = request.POST['flag'].strip()
 
     team = request.user.team
-    if not team.can_participate:
-        return HttpResponseForbidden("You can't participate for now.")
-    if not team.is_orga and (not challenge.phase or challenge.phase.start > timezone.now() or challenge.phase.stop < timezone.now()):
+
+    # if not team.can_participate:
+    #     return HttpResponseForbidden("You can't participate for now.")
+    if not team.is_orga and (not challenge.phase or challenge.phase.start > timezone.now()):
         return HttpResponseForbidden("This challenge is not active at the moment")
 
     if attempt != challenge.flag:
@@ -85,10 +86,21 @@ def flag(request, pk):
     else:
         teams = map(lambda x: x.team, challenge.resolution_set.all())
         if team.is_orga:
-            messages.add_message(request, messages.INFO, "Congrats, you flagged this challenge! But, because you're in an organisation team, you can't get point from it.")
+            messages.add_message(request, messages.INFO, "Congrats, you flagged this challenge! But, because you're in an organization team, you can't get point from it.")
+        elif challenge.phase.stop < timezone.now():
+            messages.add_message(request, messages.INFO, "Congrats, you flagged this challenge! But as the phase is finished, it won't be recorded...")
         elif team not in teams:
             messages.add_message(request, messages.SUCCESS, "Congrats, you flagged this challenge!")
             Resolution.objects.create(challenge=challenge, team=team)
         else:
             messages.add_message(request, messages.INFO, "You already flagged this challenge, nice try!")
     return HttpResponseRedirect(reverse('detail', args=[challenge.id]))
+
+
+@login_required
+@team_required
+def archives(request):
+    phases = Phase.objects.filter(stop__lte=timezone.now())
+    challenges = Challenge.objects.filter(phase__in=phases).select_related('category', 'phase').order_by("phase", "category", "points")
+    return render(request, "challenges/archives.html", {'challenges': challenges})
+

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load teams %}
+{% load markdown_deux_tags %}
+
+{% block content %}
+
+{% include "users/team_warning.html" %}
+
+<div class="page-header">
+    <h1>
+        Challenges archive
+    </h1>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Points</th>
+                    <th>Category</th>
+                    <th>Phase</th>
+
+                </tr>
+            </thead>
+            {% for chall in challenges %}
+                <tr>
+                    <td>
+                        <a href="{% url 'detail' chall.id %}">{{chall.title}}</a>
+                    </td>
+                    <td>{{chall.points}}</td>
+                    <td>{{chall.category}}</td>
+                    <td>{{chall.phase}}</td>
+
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}
