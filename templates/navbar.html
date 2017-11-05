@@ -16,10 +16,10 @@
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'challenge_list' %}">Challenges</a></li>
                 {% endif %}
-                <li><a href="{% url 'scoreboard' %}">Scoreboard</a></li>
-                <li><a href="{% url 'stats' %}">Stats</a></li>
+                <li><a href="{% url 'scoreboard' %}">2017 Scoreboard</a></li>
+                <!-- <li><a href="{% url 'stats' %}">Stats</a></li> -->
                 <li><a href="{% url 'rules' %}">Rules</a></li>
-                <li><a href="{% url 'challenge_archives' %}">Archives</a></li>
+                <!-- <li><a href="{% url 'challenge_archives' %}">Archives</a></li> -->
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -29,7 +29,7 @@
                         <i class="fa fa-terminal"></i>
                     </a>
                 </li>
-                {% if user.is_authenticated %}
+                <!-- {% if user.is_authenticated %}
                     {% if user.team %}
                         <li><a href="{% url 'team' %}">Team ({{user.team}})</a></li>
                     {% else %}
@@ -52,7 +52,7 @@
                 {% else %}
                 <li><a href="{% url 'login' %}">Login</a></li>
                 <li><a href="{% url 'register' %}">Register</a></li>
-                {% endif %}
+                {% endif %} -->
             </ul>
         </div>
     </div>
